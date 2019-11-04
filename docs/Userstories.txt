@@ -1,0 +1,21 @@
+Userstories
+----------------------------------
+
+Admin:
+	All Manager related actions
+	Add or change Categories and Tags
+	Remove Categories and Tags
+	Add or remove Manager
+
+Manager:
+	All User related actions
+	Add or change products
+	Remove products
+
+User:
+	Access Frontend
+	Search for name or tags in a search bar
+	Walk through categories
+	Store an cart identifier Cookie on the browser
+	Store items in a cart object
+	Check out from store

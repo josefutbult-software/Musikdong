@@ -1,0 +1,26 @@
+Use-cases
+----------------------
+
+The main function of the database will be to house "Products", A product is an item in our store. 
+
+We want to be able to sort articles in categories, which is stored as an item in the Product object. We also want to be able to search for Products by name and tags.
+
+Product:
+	A product has the following properties:
+		Article Id (Main identifier) {"108945"}
+		Name {Guma Drive}
+		Category {Distortion}
+		Price {500 Kr}
+		Purchase price {350 kr}
+		Inventory {20 st in stock}
+		Search tag {Overdrive, Distortion, Pedal, Darkglass, B3k}
+		Image URL {www.musikdong.se/img/108945}
+
+
+Tags:
+	A tag is an object with a Name. This object is pointed to by Products and when the name of the tag is searched for, it returns all products with the tag.
+
+Cart:
+	A cart is a list of items a user has selected for purchase. It contains the following properties:
+		Cart Id (Stored in a cookie on a users browser) {"feg-tbe-2vc"}
+		Article list (by Article Id) {"108945", "129875", "989869"}

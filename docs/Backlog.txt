@@ -1,0 +1,26 @@
+Sprint 1
+-----------------------------------
+Create a basic website homepage
+	Make it display three articles
+
+Setup Linux virtual machine
+
+Make project backbone
+
+
+To-Do
+-----------------------------------
+Create a basic website homepage
+	Make it display three articles
+
+Create a basic product page
+	Display name, product id and price
+
+Setup Linux virtual machine
+
+Make project backbone
+
+Setup basic database
+
+Create simple text-based Admin interface
+
