@@ -1,5 +1,5 @@
 Use-cases
-----------------------
+-------------------------------------------------------------------------------
 
 The main function of the database will be to house "Products", A product is an item in our store. 
 

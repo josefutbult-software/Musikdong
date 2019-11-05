@@ -5,7 +5,7 @@ Create a basic website homepage
 
 Setup Linux virtual machine
 
-Make project backbone
+Make project backbone (Aka file structure)
 
 
 To-Do
