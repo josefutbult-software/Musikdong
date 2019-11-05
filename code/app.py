@@ -22,6 +22,11 @@ def create_app():
 		return render_template('article.html', name='article')
 
 
+	@app.route('/test')
+	def test():
+		return render_template('test.html', args={'name': 'Test', 'article': '12321'})
+
+
 
 	return app
 
