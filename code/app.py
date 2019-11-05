@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, request, render_template
 
 def main():
 	app = create_app()
@@ -11,10 +11,16 @@ def create_app():
 		DATABASE = os.path.join(app.instance_path, 'flaskr.sqlite'),
 	)
 
-	
+
 	@app.route('/')
 	def home():
-		return 'Hello there. General Kenobi'
+		return render_template('home.html', name='home')
+
+
+	@app.route('/article')
+	def article():
+		return render_template('article.html', name='article')
+
 
 
 	return app
