@@ -3,9 +3,19 @@ Sprint 1
 Create a basic website homepage
 	Make it display three articles
 
+Create a general article page that later will be populated by requested product id
+
 Setup Linux virtual machine
 
+Install MySQL and setup
+
+Install NginX on the virtual mashine to access it from the internet
+
 Make project backbone (Aka file structure)
+
+Start experimenting with MySQL and pyMySql in a separate file, and try to connect it to virtual maschine
+
+Begin implementing pyMySql in the main program
 
 
 To-Do
