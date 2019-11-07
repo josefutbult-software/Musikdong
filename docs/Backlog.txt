@@ -17,20 +17,49 @@ Start experimenting with MySQL and pyMySql in a separate file, and try to connec
 
 Begin implementing pyMySql in the main program
 
+Make a basic Product object in the database
+
+Refine homepage and article page with a base template
+
+Make the article page serve different articles with different ids in the URL
+
+Make a basic Cathegory struction and begin to populate with products
+
 
 To-Do
 -----------------------------------
-Create a basic website homepage
-	Make it display three articles
 
-Create a basic product page
-	Display name, product id and price
+Make project backbone (Aka file structure)
 
 Setup Linux virtual machine
 
-Make project backbone
+Install MySQL and setup
 
-Setup basic database
+Install NginX on the virtual machine to access it from the internet
 
-Create simple text-based Admin interface
+Start experimenting with MySQL and pyMySql in a separate file, and try to connect it to virtual machine
 
+Begin implementing pyMySql in the main program
+
+Make a basic Product object in the database
+
+Create a basic website homepage
+	Make it display three articles
+	Refine homepage and article page with a base template
+
+Create a general article page that later will be populated by requested product id
+	Make the article page serve different articles with different ids in the URL
+
+Make a basic Category struction and begin to populate with products
+
+Create a header for the site with a homepage and categories
+
+Start implementing a default style on the whole site
+
+Implement carts objects
+
+Get cookies to work
+
+Implement tags
+
+Redefine the Product object, and add tags
