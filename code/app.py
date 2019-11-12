@@ -1,9 +1,6 @@
 import os
 from flask import Flask, request, render_template
 
-def main():
-	app = create_app()
-
 def create_app():
 	app = Flask(__name__, instance_relative_config=True)
 	app.config.from_mapping(
@@ -31,5 +28,7 @@ def create_app():
 	return app
 
 
-if __name__ == '__main__':
-	main()
+if __name__ == "__main__":
+
+    app = create_app()
+    app.run(host='0.0.0.0')
