@@ -1,0 +1,4 @@
+We decided to use a virtual machine on LUDDs dustcloud system
+
+To setup mySQL on the server we followed the following tutorial: "How To Install MySQL on Ubuntu 18.04" by Mark Drake (https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04)
+

@@ -56,5 +56,4 @@ Redefine the Product object, and add tags
 
 Put backlog as issues on github
 
-Start implementing users
-
+Redefine the Product object, and add tags
