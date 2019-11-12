@@ -20,22 +20,22 @@ def create_app():
 	)
 
 
-# Routes for the flask aplication
-@app.route('/')
-def home():
-	return render_template('home.html', name='home')
+	# Routes for the flask aplication
+	@app.route('/')
+	def home():
+		return render_template('home.html', name='home')
 
 
-@app.route('/article')
-def article():
-	return render_template('article.html', name='article')
+	@app.route('/article')
+	def article():
+		return render_template('article.html', name='article')
 
 
-@app.route('/test')
-def test():
-	return render_template('test.html', args={'name': 'Test', 'article': '12321'})
+	@app.route('/test')
+	def test():
+		return render_template('test.html', args={'name': 'Test', 'article': '12321'})
 
-	return app
+		return app
 
 
 if __name__ == "__main__":
