@@ -87,6 +87,6 @@ def getAllProductId():
 # product = Product({'id': '000003', 'name': 'Empa Drive'})
 # insertProductIntoDatabase(product)
 # updateProductIntoDatabase(product)
-print(getProductFromDatabase('000003').name)
+# print(getProductFromDatabase('000003').name)
 
 # print(getAllProductId())

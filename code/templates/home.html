@@ -3,5 +3,9 @@
 {% block content %}
 <h2>The best music gear north of Övik</h2>
 <p>Please give us money! Josef spent all our capital on a 7-string bass.</p>
-<a href="article.html">GUMA DRIVE 6.9</a>
+
+{% for product in args.products%}
+	<p><a href="article/000001">{{product.name}}</a></p>
+{% endfor %}
+
 {% endblock %}

@@ -1,16 +1,8 @@
 from flask_handler import create_app
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, abort
 import sys, os
-
-# Allowing a custom config file to overwrite the default configuration
-try:
-	config = __import__(sys.argv[1].replace('.py', ''))
-except (IndexError, ModuleNotFoundError) as e:
-	print(e)
-	print("Using default config")
-
-	import default_config as config
-
+import default_config
+import SQL_handler
 
 def create_app():
 	app = Flask(__name__, instance_relative_config=True)
@@ -19,16 +11,26 @@ def create_app():
 		DATABASE = os.path.join(app.instance_path, 'flaskr.sqlite'),
 	)
 
-
 	# Routes for the flask aplication
 	@app.route('/')
 	def home():
-		return render_template('home.html', name='home')
+		products = []
+		productIds = SQL_handler.getAllProductId()
+		for productId in productIds:
+			products.append(SQL_handler.getProductFromDatabase(productId))
+
+		return render_template('home.html', args={'products': products})
 
 
-	@app.route('/article')
-	def article():
-		return render_template('article.html', name='article')
+
+	@app.route('/article/<id>')
+	def article(id):
+		try:
+			product = SQL_handler.getProductFromDatabase(id)
+			return render_template('article.html', args={'product': product})
+
+		except SQL_handler.NotInDatabase:
+			abort(404)
 
 
 	@app.route('/test')
