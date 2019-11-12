@@ -3,6 +3,11 @@ import sys
 # Allowing a custom config file to overwrite the default configuration
 try:
     config = __import__(sys.argv[1].replace('.py', ''))
+    SQLADRESS = config.SQLADRESS
+    SQLUSER = config.SQLUSER
+    SQLPSWD = config.SQLPSWD
+
+    print("Using custom config")
 except (IndexError, ModuleNotFoundError):
     print("Using default config")
 

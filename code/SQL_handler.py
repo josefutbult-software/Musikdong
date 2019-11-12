@@ -1,9 +1,9 @@
 import default_config
 import pymysql.cursors
 
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='password',
+connection = pymysql.connect(host=default_config.SQLADRESS,
+                             user=default_config.SQLUSER,
+                             password=default_config.SQLPSWD,
                              db='musikdong',
                              unix_socket='/run/mysqld/mysqld.sock',
                              charset='utf8mb4',
@@ -87,6 +87,6 @@ def getAllProductId():
 # product = Product({'id': '000003', 'name': 'Empa Drive'})
 # insertProductIntoDatabase(product)
 # updateProductIntoDatabase(product)
-# print(getProductFromDatabase('000003').name)
+print(getProductFromDatabase('000003').name)
 
 # print(getAllProductId())
