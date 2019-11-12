@@ -7,5 +7,5 @@ except (IndexError, ModuleNotFoundError):
     print("Using default config")
 
     SQLADRESS = 'localhost'
-    SQLUSER = 'root'
-    SQLPSWD = 'password' # Good shit
+    SQLUSER = 'musikdong'
+    SQLPSWD = 'MusikMyLongSchlong' # Good shit
