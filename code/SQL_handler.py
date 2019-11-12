@@ -27,14 +27,26 @@ class DuplicationError(Exception):
 
 # Simple product class
 class Product():
-	def __init__(self, values):
+	def __init__(self, values, tags):
 
 		# Makes sure the declaration of the object is made by a working dictionary
 		if values.get("id") is None or values.get("name") is None:
 			raise IncorrectProductDeclaration
 
 		self.id = values.get("id")
-		self.name = values.get("name")	
+		self.name = values.get("name")
+		self.tags = tags
+
+class Tag():
+	def __init__(self, values):
+
+		# Makes sure the declaration of the object is made by a working dictionary
+		if values.get("id") is None or values.get("name") is None or values.get("productId") is None:
+			raise IncorrectProductDeclaration
+
+		self.id = values.get("id")
+		self.name = values.get("name")
+		self.productId = values.get("productId")
 
 
 # Returns a product item from the database as a dict
@@ -43,10 +55,28 @@ def getProductFromDatabase(id):
 
 	with connection.cursor() as cursor:
 		cursor.execute("SELECT * FROM product WHERE id=%s", (id, ))
-	try:
-		return Product((dict)(cursor.fetchone())) # Why does this work? This shouldn't be a feature!
-	except:
-		raise NotInDatabase
+		try:
+			getTagFromDatabase(id)
+			return Product((dict)(cursor.fetchone()), getTagFromDatabase(id)) # Why does this work? This shouldn't be a feature!
+
+
+		except:
+			raise NotInDatabase
+
+
+def getTagFromDatabase(id):
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM tag WHERE productId=%s", (id, ));
+		tags = cursor.fetchall()
+		return [Tag(tag) for tag in tags]
+		#try:
+		#	pass
+		#
+		#except:
+		#	raise NotInDatabase
+
 
 
 def insertProductIntoDatabase(product: Product) -> None:
@@ -87,6 +117,6 @@ def getAllProductId():
 # product = Product({'id': '000003', 'name': 'Empa Drive'})
 # insertProductIntoDatabase(product)
 # updateProductIntoDatabase(product)
-# print(getProductFromDatabase('000003').name)
-
+product = getProductFromDatabase('000002')
+print([tag.name for tag in product.tags])
 # print(getAllProductId())
