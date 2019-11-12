@@ -1,6 +1,6 @@
 from flask_handler import create_app
 from flask import Flask, request, render_template
-import sys
+import sys, os
 
 # Allowing a custom config file to overwrite the default configuration
 try:
@@ -35,7 +35,7 @@ def create_app():
 	def test():
 		return render_template('test.html', args={'name': 'Test', 'article': '12321'})
 
-		return app
+	return app
 
 
 if __name__ == "__main__":
