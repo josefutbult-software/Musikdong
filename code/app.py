@@ -12,8 +12,12 @@ except (IndexError, ModuleNotFoundError) as e:
 	import default_config as config
 
 
-# Creating a flask application
-app = create_app()
+def create_app():
+	app = Flask(__name__, instance_relative_config=True)
+	app.config.from_mapping(
+		SECRET_KEY = 'dev',
+		DATABASE = os.path.join(app.instance_path, 'flaskr.sqlite'),
+	)
 
 
 # Routes for the flask aplication
@@ -30,3 +34,11 @@ def article():
 @app.route('/test')
 def test():
 	return render_template('test.html', args={'name': 'Test', 'article': '12321'})
+
+	return app
+
+
+if __name__ == "__main__":
+
+    app = create_app()
+    app.run(host='0.0.0.0')
