@@ -35,7 +35,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES ('000002','Josefs Oskuld'),('000003','Ompa Drive');
+INSERT INTO `product` VALUES ('000001','Comp Ma Swamp'),('000002','Josefs Oskuld'),('000003','Ompa Drive'),('000004','Magic crystals');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +61,7 @@ CREATE TABLE `tag` (
 
 LOCK TABLES `tag` WRITE;
 /*!40000 ALTER TABLE `tag` DISABLE KEYS */;
-INSERT INTO `tag` VALUES ('Distortion','000002'),('Jens','000002'),('OVERDRIVE','000002'),('OVERDRIVE','000003');
+INSERT INTO `tag` VALUES ('Distortion','000001'),('Distortion','000003'),('Distortion','000004'),('Drugs','000004'),('Overdrive','000001'),('Overdrive','000002'),('OVERDRIVE','000003'),('Overdrive','000004'),('Sexual service','000001'),('Sexual service','000002');
 /*!40000 ALTER TABLE `tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,4 +98,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-15 16:01:58
+-- Dump completed on 2019-11-15 23:34:37
