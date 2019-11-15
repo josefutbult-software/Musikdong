@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
+<link rel="stylesheet" type="text/css" href="styles.css">
 
-<h1>{{args.product.name}}</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>{{args.product.name}}</h3>
 <p>Sue me</p>
 
-</body>
-</html>
+{% endblock %}
