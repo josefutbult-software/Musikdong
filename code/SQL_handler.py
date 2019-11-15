@@ -41,10 +41,9 @@ class Tag():
 	def __init__(self, values):
 
 		# Makes sure the declaration of the object is made by a working dictionary
-		if values.get("id") is None or values.get("name") is None or values.get("productId") is None:
+		if values.get("name") is None or values.get("productId") is None:
 			raise IncorrectProductDeclaration
 
-		self.id = values.get("id")
 		self.name = values.get("name")
 		self.productId = values.get("productId")
 
@@ -56,7 +55,6 @@ def getProductFromDatabase(id):
 	with connection.cursor() as cursor:
 		cursor.execute("SELECT * FROM product WHERE id=%s", (id, ))
 		try:
-			getTagFromDatabase(id)
 			return Product((dict)(cursor.fetchone()), getTagFromDatabase(id)) # Why does this work? This shouldn't be a feature!
 
 
@@ -68,15 +66,32 @@ def getTagFromDatabase(id):
 	global connection
 
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM tag WHERE productId=%s", (id, ));
-		tags = cursor.fetchall()
-		return [Tag(tag) for tag in tags]
-		#try:
-		#	pass
-		#
-		#except:
-		#	raise NotInDatabase
+		try:
+			cursor.execute("SELECT * FROM tag WHERE productId=%s", (id, ));
+			tags = cursor.fetchall()
 
+			return [Tag(tag) for tag in tags]
+		
+		except:
+			raise NotInDatabase
+
+def updateTags(product: Product) -> None:
+	global connection
+
+	with connection.cursor() as cursor:
+
+		for productTag in product.tags:
+			try:
+				cursor.execute("INSERT INTO tag (name, productId) VALUES (%s, %s)", (productTag.name, product.id))
+				connection.commit()
+			except:
+				pass
+
+		cursor.execute("SELECT name FROM tag WHERE productId=%s", (product.id))
+
+		datbasTags = (dict)(cursor.fetchall())
+		for databasTag in databasTags:
+			pass
 
 
 def insertProductIntoDatabase(product: Product) -> None:
@@ -87,7 +102,7 @@ def insertProductIntoDatabase(product: Product) -> None:
 
 	with connection.cursor() as cursor:	
 		try:
-			cursor.execute("INSERT INTO `product` (`id`, `name`) VALUES (%s, %s)", (product.id, product.name))
+			cursor.execute("INSERT INTO `product` (`id`, `name`) VALUES (null, %s)", (product.id, product.name))
 			connection.commit()
 		except:
 			raise DuplicationError
@@ -114,9 +129,7 @@ def getAllProductId():
 		return [instance.get("id") for instance in result]
 
 
-# product = Product({'id': '000003', 'name': 'Empa Drive'})
-# insertProductIntoDatabase(product)
-# updateProductIntoDatabase(product)
 product = getProductFromDatabase('000002')
+product.tags = product.tags[:-1]
 print([tag.name for tag in product.tags])
-# print(getAllProductId())
+updateTags(product)
