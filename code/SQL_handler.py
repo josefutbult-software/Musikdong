@@ -138,7 +138,3 @@ def updateTags(product: Product) -> None:
 				cursor.execute("DELETE FROM tag WHERE name=%s AND productId=%s", (databasTag.get("name"), product.id))
 				connection.commit()
 
-
-product = Product({'id': '000004', 'name': 'Magic crystals'}, [Tag({'name': 'Overdrive', 'productId': '000004'}), Tag({'name': 'Distortion', 'productId': '000004'}), Tag({'name': 'Drugs', 'productId': '000004'})])
-
-insertProductIntoDatabase(product)
