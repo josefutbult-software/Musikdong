@@ -129,7 +129,7 @@ def getAllProductId():
 		return [instance.get("id") for instance in result]
 
 
-product = getProductFromDatabase('000002')
-product.tags = product.tags[:-1]
-print([tag.name for tag in product.tags])
-updateTags(product)
+# product = getProductFromDatabase('000002')
+# product.tags = product.tags[:-1]
+# print([tag.name for tag in product.tags])
+# updateTags(product)
