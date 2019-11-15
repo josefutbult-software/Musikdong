@@ -25,3 +25,11 @@ h5 {
 p  {
 	margin-left: 700px;
 }
+
+#foot {
+
+	display: flex; 
+	flex-direction: row; 
+	position: absolute;
+	bottom: 0;
+}

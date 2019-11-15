@@ -10,5 +10,12 @@
 <h1>Musikdong - How long is your musikschlong?</h1>
 {% block content %}{% endblock %}
 
+<div id="foot">
+{% for i in range(20) %}
+	<div><img src="{{url_for('static', filename='gnome.gif')}}" style="width: 100%"></div>
+{% endfor %}	
+</div>
+
+
 </body>
 </html>
