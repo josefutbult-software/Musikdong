@@ -1,8 +1,10 @@
+<link rel="stylesheet type="text/css" href="styles.css">
+
 {% extends 'base.html' %}
 
 {% block content %}
 <h2>The best music gear north of Övik</h2>
-<p>Please give us money! Josef spent all our capital on a 7-string bass.</p>
+<h5>Please give us money! Josef spent all our capital on a 7-string bass...</h5>
 
 {% for product in args.products%}
 	<p><a href="article/{{product.id}}">{{product.name}}</a></p>
