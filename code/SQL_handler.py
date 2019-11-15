@@ -133,3 +133,4 @@ def getAllProductId():
 # product.tags = product.tags[:-1]
 # print([tag.name for tag in product.tags])
 # updateTags(product)
+
