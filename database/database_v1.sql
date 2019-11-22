@@ -1,0 +1,355 @@
+-- Let me do some shady stuff
+SET FOREIGN_KEY_CHECKS=0;
+
+-- Generates schema Musikdong
+DROP SCHEMA IF EXISTS `musikdong`;
+CREATE SCHEMA IF NOT EXISTS `musikdong` ;
+USE `musikdong` ;
+
+-- Create table Category
+-- +-------+-------------+------+-----+---------+-------+
+-- | Field | Type        | Null | Key | Default | Extra |
+-- +-------+-------------+------+-----+---------+-------+
+-- | name  | varchar(45) | NO   | PRI | NULL    |       |
+-- +-------+-------------+------+-----+---------+-------+
+
+DROP TABLE IF EXISTS Category;
+CREATE TABLE Category (
+	`name` VARCHAR(45) NOT NULL,
+	PRIMARY KEY (`name`)
+);
+
+-- Create table Products
+-- +-------------+-------------+------+-----+---------+-------+
+-- | Field       | Type        | Null | Key | Default | Extra |
+-- +-------------+-------------+------+-----+---------+-------+
+-- | id          | varchar(6)  | NO   | PRI | NULL    |       |
+-- | name        | varchar(45) | NO   |     | NULL    |       |
+-- | price       | float       | YES  |     | 0       |       |
+-- | description | longtext    | YES  |     | NULL    |       |
+-- | imageUrl    | varchar(45) | YES  |     | NULL    |       |
+-- | category    | varchar(45) | YES  | MUL | NULL    |       |
+-- +-------------+-------------+------+-----+---------+-------+
+
+DROP TABLE IF EXISTS Products ;
+CREATE TABLE IF NOT EXISTS Products (
+	`id` VARCHAR(6) NOT NULL,
+	`name` VARCHAR(45) NOT NULL,
+	`price` FLOAT NULL DEFAULT 0,
+	`description` LONGTEXT NULL,
+	`imageUrl` VARCHAR(45) NULL,
+	`category` VARCHAR(45) NULL,
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (category) REFERENCES Category(name)
+);
+
+-- Create table TagTypes
+-- +-------+-------------+------+-----+---------+-------+
+-- | Field | Type        | Null | Key | Default | Extra |
+-- +-------+-------------+------+-----+---------+-------+
+-- | name  | varchar(45) | NO   | PRI | NULL    |       |
+-- +-------+-------------+------+-----+---------+-------+
+
+DROP TABLE IF EXISTS TagTypes;
+CREATE TABLE IF NOT EXISTS TagTypes (
+	`name` VARCHAR(45) NOT NULL,
+	PRIMARY KEY (`name`)
+);
+
+-- Create table Tag
+-- +-------------+-------------+------+-----+---------+-------+
+-- | Field       | Type        | Null | Key | Default | Extra |
+-- +-------------+-------------+------+-----+---------+-------+
+-- | productId   | varchar(6)  | NO   | PRI | NULL    |       |
+-- | tagTypeName | varchar(45) | NO   | PRI | NULL    |       |
+-- +-------------+-------------+------+-----+---------+-------+
+
+DROP TABLE IF EXISTS Tag;
+CREATE TABLE IF NOT EXISTS Tag (
+	`productId` VARCHAR(6) NOT NULL,
+	`tagTypeName` VARCHAR(45) NOT NULL,
+	PRIMARY KEY (`productId`, `tagTypeName`),
+	FOREIGN KEY (`productId`)
+    REFERENCES `musikdong`.`Products` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    FOREIGN KEY (`tagTypeName`)
+    REFERENCES `musikdong`.`TagTypes` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+-- Create table User
+-- +----------+-------------+------+-----+---------+----------------+
+-- | Field    | Type        | Null | Key | Default | Extra          |
+-- +----------+-------------+------+-----+---------+----------------+
+-- | id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+-- | userName | varchar(45) | NO   |     | NULL    |                |
+-- | password | varchar(45) | NO   |     | NULL    |                |
+-- | alias    | varchar(45) | NO   |     | NULL    |                |
+-- +----------+-------------+------+-----+---------+----------------+
+
+DROP TABLE IF EXISTS User;
+CREATE TABLE IF NOT EXISTS User (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`userName` VARCHAR(45) NOT NULL,
+	`password` VARCHAR(45) NOT NULL,
+	`alias` VARCHAR(45) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+-- Create table Cart
+-- +-----------+------------+------+-----+---------+-------+
+-- | Field     | Type       | Null | Key | Default | Extra |
+-- +-----------+------------+------+-----+---------+-------+
+-- | userId    | int(11)    | NO   | PRI | NULL    |       |
+-- | productId | varchar(6) | NO   | PRI | NULL    |       |
+-- +-----------+------------+------+-----+---------+-------+
+
+DROP TABLE IF EXISTS Cart;
+CREATE TABLE IF NOT EXISTS Cart(
+	`userId` INT NOT NULL,
+	`productId` VARCHAR(6) NOT NULL,
+	PRIMARY KEY (`userId`, `productId`),
+	FOREIGN KEY (`userId`)
+    REFERENCES `User` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    FOREIGN KEY (`productId`)
+    REFERENCES `Products` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+);
+
+-- Create table Review
+-- +-----------+-------------+------+-----+---------+-------+
+-- | Field     | Type        | Null | Key | Default | Extra |
+-- +-----------+-------------+------+-----+---------+-------+
+-- | userId    | int(11)     | NO   | PRI | NULL    |       |
+-- | productId | varchar(45) | NO   | PRI | NULL    |       |
+-- | rating    | int(11)     | YES  |     | NULL    |       |
+-- +-----------+-------------+------+-----+---------+-------+
+
+DROP TABLE IF EXISTS Review;
+CREATE TABLE IF NOT EXISTS Review (
+	`userId` INT NOT NULL,
+	`productId` VARCHAR(45) NOT NULL,
+	`rating` INT NULL,
+	PRIMARY KEY (`userId`, `productId`),
+	FOREIGN KEY (`userId`)
+    REFERENCES `musikdong`.`User` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    FOREIGN KEY (`productId`)
+    REFERENCES `musikdong`.`Products` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+);
+
+-- Turn on security checks
+SET FOREIGN_KEY_CHECKS=1;
+
+
+-- Create some test-data
+
+-- Categorys
+INSERT INTO Category (name) VALUES (
+	'Overdrive'
+);
+INSERT INTO Category (name) VALUES (
+	'Distortion'
+);
+INSERT INTO Category (name) VALUES (
+	'Sexual Favor'
+);
+INSERT INTO Category (name) VALUES (
+	'Compressor'
+);
+
+
+-- Products
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'043821',
+	'Guma Drive',
+	450.0,
+	'An overdrive for bass. Gimme some more of that bass daddy',
+	'None',
+	'Overdrive'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'018183',
+	'Comp ma Swamp',
+	200.0,
+	'Some body once told me the world is gonna roll me, I ain\'t the sharpest tool i the shed',
+	'None',
+	'Compressor'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'183719',
+	'Josefs Oskuld',
+	-40.0,
+	'Jag är desperat asså!',
+	'None',
+	'Sexual Favor'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'019302',
+	'Magical powder',
+	100.0,
+	'Not drugs...I promise',
+	'None',
+	'Sexual Favor'
+);
+
+
+
+-- TagTypes
+INSERT INTO TagTypes (name) VALUES (
+	'Overdrive'
+);
+INSERT INTO TagTypes (name) VALUES (
+	'Distortion'
+);
+INSERT INTO TagTypes (name) VALUES (
+	'Sexual Favor'
+);
+INSERT INTO TagTypes (name) VALUES (
+	'Compressor'
+);
+INSERT INTO TagTypes (name) VALUES (
+	'Stomp'
+);
+INSERT INTO TagTypes (name) VALUES (
+	'Drive'
+);
+INSERT INTO TagTypes (name) VALUES (
+	'Drugs'
+);
+INSERT INTO TagTypes (name) VALUES (
+	'Telejack'
+);
+
+
+
+-- Tags
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'043821',
+	'Distortion'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'043821',
+	'Overdrive'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'043821',
+	'Drive'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'018183',
+	'Compressor'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'018183',
+	'Stomp'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'018183',
+	'Drugs'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'183719',
+	'Sexual Favor'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'019302',
+	'Drugs'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'019302',
+	'Overdrive'
+);
+INSERT INTO Tag (productId, tagTypeName) VALUES (
+	'019302',
+	'Sexual Favor'
+);
+
+
+
+-- Users
+INSERT INTO User (id, userName, password, alias) VALUES (
+	NULL,
+	'Josef_U',
+	'password',
+	'Josef'
+);
+INSERT INTO User (id, userName, password, alias) VALUES (
+	NULL,
+	'FuckMaster69',
+	'password',
+	'Leo'
+);
+INSERT INTO User (id, userName, password, alias) VALUES (
+	NULL,
+	'JizzWizzard420',
+	'password',
+	'Jens'
+);
+INSERT INTO User (id, userName, password, alias) VALUES (
+	NULL,
+	'LadyBeard',
+	'password',
+	'Tom'
+);
+
+
+--Cart
+INSERT INTO Cart (userId, productId) VALUES (
+	1,
+	'043821'
+);
+INSERT INTO Cart (userId, productId) VALUES (
+	1,
+	'183719'
+);
+INSERT INTO Cart (userId, productId) VALUES (
+	1,
+	'019302'
+);
+INSERT INTO Cart (userId, productId) VALUES (
+	2,
+	'019302'
+);
+INSERT INTO Cart (userId, productId) VALUES (
+	2,
+	'183719'
+);
+INSERT INTO Cart (userId, productId) VALUES (
+	3,
+	'043821'
+);
+INSERT INTO Cart (userId, productId) VALUES (
+	4,
+	'018183'
+);
+
+
+-- Review
+INSERT INTO Review (userId, productId, rating) VALUES (
+	1,
+	'043821',
+	4
+);
+INSERT INTO Review (userId, productId, rating) VALUES (
+	1,
+	'183719',
+	2
+);
+INSERT INTO Review (userId, productId, rating) VALUES (
+	2,
+	'019302',
+	5
+);
+INSERT INTO Review (userId, productId, rating) VALUES (
+	3,
+	'183719',
+	5
+);
