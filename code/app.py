@@ -37,6 +37,12 @@ def create_app():
 	def test():
 		return render_template('test.html', args={'name': 'Test', 'article': '12321'})
 
+	@app.route('/category/<id>')
+	def category():
+	
+
+		return render_template('categories.html', args={'products': ["Guma drive", "Bassslapper"]})
+		
 	return app
 
 
