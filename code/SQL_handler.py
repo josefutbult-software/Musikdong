@@ -24,13 +24,14 @@ def getProductFromDatabase(id):
 		except:
 			raise NotInDatabase
 
-def getProductByCategoryFromDatabase(category):
+def getProductsByCategoryFromDatabase(category):
 	global connection
 
 	with connection.cursor() as cursor:
 		cursor.execute("SELECT * FROM Products WHERE category=%s", (category, ))
 		try:
-			return Product((dict)(cursor.fetchone())) # Why does this work? This shouldn't be a feature!
+			result = (cursor.fetchall()) # Why does this work? This shouldn't be a feature!
+			return [Product(instance) for instance in result]
 
 		except:
 			raise NotInDatabase

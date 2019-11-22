@@ -17,5 +17,5 @@ def getProductFromDatabase(id):
 def getCategories():
 	return ['Overdrive', 'Compressor', 'Sexual Favor']
 
-def getProductByCategoryFromDatabase(id):
+def getProductsByCategoryFromDatabase(id):
 	return [product for product in products if product.category == id]
