@@ -1,4 +1,4 @@
 USEDUMMYDATABASE = True
-SQLADRESS = 'localhost'
-SQLUSER = 'root'
-SQLPSWD = 'password' # Good shit
+SQLADRESS = '130.240.200.51'
+SQLUSER = 'musikdong'
+SQLPSWD = 'MusikMyLongSchlong' # Good shit

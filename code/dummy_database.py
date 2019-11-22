@@ -1,3 +1,5 @@
+# This is a dummy database, in case mySql isnt implemented localy
+
 from database_handler import *
 
 products = [

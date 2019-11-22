@@ -15,4 +15,4 @@ except (IndexError, ModuleNotFoundError):
     SQLADRESS = 'localhost'
     SQLUSER = 'musikdong'
     SQLPSWD = 'MusikMyLongSchlong' # Good shit
-    USEDUMMYDATABASE = True
+    USEDUMMYDATABASE = False

@@ -46,7 +46,6 @@ def create_app():
 
 	@app.route('/category/<id>')
 	def category(id):
-		print('Here:', id)
 
 		return render_template('categories.html', args={'products': SQL_handler.getProductByCategoryFromDatabase(id)})
 		
