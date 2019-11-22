@@ -6,8 +6,8 @@
 <h2>The best music gear north of Övik</h2>
 <h5>Please give us money! Josef spent all our capital on a 7-string bass...</h5>
 
-{% for product in args.products%}
-	<p><a href="categories.html">Categories</a></p>
+{% for category in args.categories%}
+	<p><a href="category/{{category}}">{{category}}</a></p>
 {% endfor %}
 
 {% endblock %}

@@ -2,8 +2,10 @@
 
 {% extends 'base.html' %}
 
+{% block content %}
+
 {% for product in args.products%}
-	<p><a href="category/{{product}}">{{product}}</a></p>
+	<p><a href="../product/{{product.id}}">{{product.name}}</a></p>
 {% endfor %}
 
 {% endblock %}

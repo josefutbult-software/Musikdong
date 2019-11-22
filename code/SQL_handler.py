@@ -1,5 +1,6 @@
 import default_config
 import pymysql.cursors
+from database_handler import *
 
 # Initiates a connection to the mySql database on run
 connection = pymysql.connect(host=default_config.SQLADRESS,
@@ -11,53 +12,25 @@ connection = pymysql.connect(host=default_config.SQLADRESS,
                              cursorclass=pymysql.cursors.DictCursor)
 
 
-class NotInDatabase(Exception):
-   # Raised when an item doesn't exist in the database
-   pass
-
-
-class IncorrectProductDeclaration(Exception):
-   # Raised when an attempt at creating a product object fails
-   pass
-
-
-class DuplicationError(Exception):
-   # Raised when an attempt at inserting a duplicate object into the database
-   pass
-
-
-# Simple product class
-class Product():
-	def __init__(self, values, tags):
-
-		# Makes sure the declaration of the object is made by a working dictionary
-		if values.get("id") is None or values.get("name") is None:
-			raise IncorrectProductDeclaration
-
-		self.id = values.get("id")
-		self.name = values.get("name")
-		self.tags = tags
-
-# A Simple tag class
-class Tag():
-	def __init__(self, values):
-
-		# Makes sure the declaration of the object is made by a working dictionary
-		if values.get("name") is None or values.get("productId") is None:
-			raise IncorrectProductDeclaration
-
-		self.name = values.get("name")
-		self.productId = values.get("productId")
-
-
 # Returns a product item from the database as a dict
 def getProductFromDatabase(id):
 	global connection
 
 	with connection.cursor() as cursor:
-		cursor.execute("SELECT * FROM product WHERE id=%s", (id, ))
+		cursor.execute("SELECT * FROM Products WHERE id=%s", (id, ))
 		try:
-			return Product((dict)(cursor.fetchone()), getTagFromDatabase(id)) # Why does this work? This shouldn't be a feature!
+			return Product((dict)(cursor.fetchone())) # Why does this work? This shouldn't be a feature!
+
+		except:
+			raise NotInDatabase
+
+def getProductByCategoryFromDatabase(category):
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM Products WHERE category=%s", (category, ))
+		try:
+			return Product((dict)(cursor.fetchone())) # Why does this work? This shouldn't be a feature!
 
 		except:
 			raise NotInDatabase
@@ -71,13 +44,13 @@ def insertProductIntoDatabase(product: Product) -> None:
 		raise TypeError
 
 	with connection.cursor() as cursor:	
+
 		try:
-			cursor.execute("INSERT INTO `product` (`id`, `name`) VALUES (%s, %s)", (product.id, product.name))
-			connection.commit()
+			cursor.execute("INSERT INTO `Products` (`id`, `name`, `price`, `description`, `imageUrl`, `category`) VALUES (%s, %s, %s, %s, %s, %s)",
+			(product.id, product.name, product.price, product.description, product.imageUrl, product.category))
+			connection.commit()			
 		except:
 			raise DuplicationError
-
-	updateTags(product)
 
 
 # Updates a product and its tags in the database
@@ -88,53 +61,52 @@ def updateProductIntoDatabase(product: Product) -> None:
 		raise TypeError
 
 	with connection.cursor() as cursor:		
-		cursor.execute("UPDATE `product` SET `name`=%s WHERE `id`=%s", (product.name, product.id));
+		cursor.execute("UPDATE `Products` SET `name`=%s, `price`=%s, `description`=%s, `imageUrl`=%s, `category`=%s WHERE `id`=%s", (product.name, product.price, product.description, product.imageUrl, product.category, product.id));
+		connection.commit()		
 
-	updateTags(product)
 
 # Returns a list of ids from the database
 def getAllProductId():
 	global connection
 
 	with connection.cursor() as cursor:		
-		cursor.execute("SELECT id FROM product");
+		cursor.execute("SELECT id FROM Products");
 		result = cursor.fetchall()
 
 		return [instance.get("id") for instance in result]
 
-# Pulls a list of tags associated with a product id from the database and generates a list of Tag objects
-def getTagFromDatabase(id):
+
+def getProductTagsFromDatabase(product):
 	global connection
 
-	with connection.cursor() as cursor:
-		try:
-			cursor.execute("SELECT * FROM tag WHERE productId=%s", (id, ));
-			tags = cursor.fetchall()
+	if not isinstance(product, Product):
+		raise TypeError
 
-			return [Tag(tag) for tag in tags]
-		
+	with connection.cursor() as cursor:		
+		cursor.execute("SELECT * FROM Tag WHERE `productId`=%s", (product.id, ))
+
+		try:
+			result = (list)(cursor.fetchall())
+			return [Tag(tag) for tag in result]
+
 		except:
 			raise NotInDatabase
 
-# Goes through all tags in the database, adds tags that doesn't exist in the database
-# and removes tags that doesn't exist in the products list of tag objects
-def updateTags(product: Product) -> None:
+def getTagTypesFromDatabase():
+	global connection
+
+	with connection.cursor() as cursor:		
+		cursor.execute("SELECT * FROM TagTypes")
+		result = cursor.fetchall()
+		return [instance.get("name") for instance in result]
+
+def getCategories():
 	global connection
 
 	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM Category")
+		result = cursor.fetchall()
+		return [instance.get("name") for instance in result]
 
-		for productTag in product.tags:
-			try:
-				cursor.execute("INSERT INTO tag (name, productId) VALUES (%s, %s)", (productTag.name, product.id))
-				connection.commit()
-			except:
-				pass
 
-		cursor.execute("SELECT name FROM tag WHERE productId=%s", (product.id))
-
-		databasTags = cursor.fetchall()
-		for databasTag in databasTags:
-			if not len([tag for tag in product.tags if tag.name == databasTag.get("name")]):
-				cursor.execute("DELETE FROM tag WHERE name=%s AND productId=%s", (databasTag.get("name"), product.id))
-				connection.commit()
-
+print(getCategories())

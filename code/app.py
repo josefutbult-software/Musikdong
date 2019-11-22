@@ -2,7 +2,13 @@ from flask_handler import create_app
 from flask import Flask, request, render_template, abort
 import sys, os
 import default_config
-import SQL_handler
+from database_handler import *
+
+if not default_config.USEDUMMYDATABASE:
+	import SQL_handler
+else:
+	import dummy_database as SQL_handler
+
 
 def create_app():
 	app = Flask(__name__, instance_relative_config=True)
@@ -19,17 +25,17 @@ def create_app():
 		for productId in productIds:
 			products.append(SQL_handler.getProductFromDatabase(productId))
 
-		return render_template('home.html', args={'products': products})
+		return render_template('home.html', args={'categories': SQL_handler.getCategories()})
 
 
 
-	@app.route('/article/<id>')
-	def article(id):
+	@app.route('/product/<id>')
+	def product(id):
 		try:
 			product = SQL_handler.getProductFromDatabase(id)
-			return render_template('article.html', args={'product': product})
+			return render_template('product.html', args={'product': product})
 
-		except SQL_handler.NotInDatabase:
+		except database_handler.NotInDatabase:
 			abort(404)
 
 
@@ -37,12 +43,14 @@ def create_app():
 	def test():
 		return render_template('test.html', args={'name': 'Test', 'article': '12321'})
 
-	@app.route('/category/<id>')
-	def category():
-	
 
-		return render_template('categories.html', args={'products': ["Guma drive", "Bassslapper"]})
+	@app.route('/category/<id>')
+	def category(id):
+		print('Here:', id)
+
+		return render_template('categories.html', args={'products': SQL_handler.getProductByCategoryFromDatabase(id)})
 		
+
 	return app
 
 

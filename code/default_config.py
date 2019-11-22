@@ -6,6 +6,7 @@ try:
     SQLADRESS = config.SQLADRESS
     SQLUSER = config.SQLUSER
     SQLPSWD = config.SQLPSWD
+    USEDUMMYDATABASE = config.USEDUMMYDATABASE
 
     print("Using custom config")
 except (IndexError, ModuleNotFoundError):
@@ -14,3 +15,4 @@ except (IndexError, ModuleNotFoundError):
     SQLADRESS = 'localhost'
     SQLUSER = 'musikdong'
     SQLPSWD = 'MusikMyLongSchlong' # Good shit
+    USEDUMMYDATABASE = True
