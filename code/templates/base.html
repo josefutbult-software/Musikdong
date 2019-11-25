@@ -11,10 +11,39 @@
 </head>
 <body>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-12 text-center"> <h1>Musikdong - How long is your musikschlong?</h1> </div>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8 text-center"> <h1>Musikdong - How long is your musikschlong?</h1> </div>
+	<div class="col-md-1 float-right">
+		{% if user != None %}
+		<p>{{user.alias}}</p>
+		{% endif %}
 	</div>
+	<div class="col-md-1 pull-right">
+		{% if user != None%}
+		<a href="logout">
+			<button class="btn btn-primary" >Logout</button>
+		</a>
+		{% else %}
+		<a href="login">
+			<button class="btn btn-primary" >Login</button>
+		</a>
+		{% endif %}
+	</div>
+</div>
+
+<div class="container">
+
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<ul class=flashes>
+	{% for message in messages %}
+	<li>{{ message }}</li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+	
 	<div class="row">
 		<div class="col-md-12 text-center"> {% block content %}{% endblock %} </div>
 	</div>

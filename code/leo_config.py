@@ -1,3 +1,4 @@
+DEBUG = True
 USEDUMMYDATABASE = True
 SQLADRESS = '130.240.200.51'
 SQLUSER = 'musikdong'

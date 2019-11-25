@@ -109,5 +109,25 @@ def getCategories():
 		result = cursor.fetchall()
 		return [instance.get("name") for instance in result]
 
+def getUserById(id):
+	global connection
 
-print(getCategories())
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM User WHERE id=%s", (id, ))
+
+		try:
+			return User(cursor.fetchone())
+		except:
+			return None
+
+
+def getUserByUsername(username):
+		global connection
+
+		with connection.cursor() as cursor:
+			cursor.execute("SELECT * FROM User WHERE username=%s", (username, ))
+
+			try:
+				return User(cursor.fetchone())
+			except:
+				return None

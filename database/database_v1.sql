@@ -85,15 +85,15 @@ CREATE TABLE IF NOT EXISTS Tag (
 -- +----------+-------------+------+-----+---------+----------------+
 -- | id       | int(11)     | NO   | PRI | NULL    | auto_increment |
 -- | userName | varchar(45) | NO   |     | NULL    |                |
--- | password | varchar(45) | NO   |     | NULL    |                |
+-- | password | varchar(94) | NO   |     | NULL    |                |
 -- | alias    | varchar(45) | NO   |     | NULL    |                |
 -- +----------+-------------+------+-----+---------+----------------+
 
 DROP TABLE IF EXISTS User;
 CREATE TABLE IF NOT EXISTS User (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`userName` VARCHAR(45) NOT NULL,
-	`password` VARCHAR(45) NOT NULL,
+	`username` VARCHAR(45) NOT NULL,
+	`password` VARCHAR(94) NOT NULL,
 	`alias` VARCHAR(45) NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -278,25 +278,25 @@ INSERT INTO Tag (productId, tagTypeName) VALUES (
 INSERT INTO User (id, userName, password, alias) VALUES (
 	NULL,
 	'Josef_U',
-	'password',
+	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
 	'Josef'
 );
 INSERT INTO User (id, userName, password, alias) VALUES (
 	NULL,
 	'FuckMaster69',
-	'password',
+	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
 	'Leo'
 );
 INSERT INTO User (id, userName, password, alias) VALUES (
 	NULL,
 	'JizzWizzard420',
-	'password',
+	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
 	'Jens'
 );
 INSERT INTO User (id, userName, password, alias) VALUES (
 	NULL,
 	'LadyBeard',
-	'password',
+	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
 	'Tom'
 );
 
