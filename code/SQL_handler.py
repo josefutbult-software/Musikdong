@@ -36,6 +36,14 @@ def getProductsByCategoryFromDatabase(category):
 		except:
 			raise NotInDatabase
 
+def getAllProducts():
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM Products")
+		result = cursor.fetchall()
+		return [Product(instance) for instance in result]
+
 
 # Appends a product and its tags in the database
 def insertProductIntoDatabase(product: Product) -> None:
@@ -93,6 +101,7 @@ def getProductTagsFromDatabase(product):
 		except:
 			raise NotInDatabase
 
+
 def getTagTypesFromDatabase():
 	global connection
 
@@ -101,6 +110,7 @@ def getTagTypesFromDatabase():
 		result = cursor.fetchall()
 		return [instance.get("name") for instance in result]
 
+
 def getCategories():
 	global connection
 
@@ -108,6 +118,7 @@ def getCategories():
 		cursor.execute("SELECT * FROM Category")
 		result = cursor.fetchall()
 		return [instance.get("name") for instance in result]
+
 
 def getUserById(id):
 	global connection
@@ -122,12 +133,45 @@ def getUserById(id):
 
 
 def getUserByUsername(username):
-		global connection
+	global connection
 
-		with connection.cursor() as cursor:
-			cursor.execute("SELECT * FROM User WHERE username=%s", (username, ))
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM User WHERE username=%s", (username, ))
 
-			try:
-				return User(cursor.fetchone())
-			except:
-				return None
+		try:
+			return User(cursor.fetchone())
+		except:
+			return None
+
+
+def getAllUsers():
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM User")
+		result = cursor.fetchall()
+		return [User(instance) for instance in result]
+
+
+
+def insert_user(user: User) -> None:
+	global connection
+
+	if not getUserByUsername(user.username) is None:
+		return False
+
+	with connection.cursor() as cursor:
+		cursor.execute("INSERT INTO `User` (`id`, `username`, `password`, `alias`, `clearance`) VALUES (null, %s, %s, %s, %s)", (user.username, user.password, user.alias, user.clearance))
+		connection.commit()
+
+	return True
+
+def update_user(user: User) -> None:
+	global connection
+
+	if getUserByUsername(user.username) is None:
+		return False
+
+	with connection.cursor() as cursor:
+		cursor.execute("UPDATE `User` SET `username`=%s, `password`=%s, `alias`=%s, `clearance`=%s WHERE `id`=%s", (user.username, user.password, user.alias, user.clearance, user.id))
+		connection.commit()

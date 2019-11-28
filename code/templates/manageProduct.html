@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if args.user != None and args.user.clearance <= 1 %}
+<h2>{{args.productToManage.name}}</h2>
+<form method="post">
+	Name: <input type="text" name="name" value ="{{args.productToManage.name}}">
+	<br>
+	Price: <input type="text" name="price" value="{{args.productToManage.price}}">
+	<br>
+	Description: <textarea name="description" rows="4" cols="50">{{args.productToManage.description}}</textarea>
+	<br>
+	Category: <select name="category">
+		{% for category in args.categories %}
+		<option value="{{category}}" {% if category == args.productToManage.category %} selected="selected" {% endif%}>{{category}}</option>
+		{% endfor %}
+	</select>
+	<hr>
+	<button type="submit">Update</button>
+</form>
+{% endif %}
+
+{% endblock %}

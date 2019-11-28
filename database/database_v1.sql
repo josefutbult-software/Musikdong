@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS User (
 	`username` VARCHAR(45) NOT NULL,
 	`password` VARCHAR(94) NOT NULL,
 	`alias` VARCHAR(45) NOT NULL,
+	`clearance` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 -- Create table Cart
@@ -275,29 +276,40 @@ INSERT INTO Tag (productId, tagTypeName) VALUES (
 
 
 -- Users
-INSERT INTO User (id, userName, password, alias) VALUES (
+INSERT INTO User (id, userName, password, alias, clearance) VALUES (
+	NULL,
+	'admin',
+	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
+	'Admin',
+	0
+);
+INSERT INTO User (id, userName, password, alias, clearance) VALUES (
 	NULL,
 	'Josef_U',
 	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
-	'Josef'
+	'Josef',
+	1
 );
-INSERT INTO User (id, userName, password, alias) VALUES (
+INSERT INTO User (id, userName, password, alias, clearance) VALUES (
 	NULL,
 	'FuckMaster69',
 	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
-	'Leo'
+	'Leo',
+	2
 );
-INSERT INTO User (id, userName, password, alias) VALUES (
+INSERT INTO User (id, userName, password, alias, clearance) VALUES (
 	NULL,
 	'JizzWizzard420',
 	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
-	'Jens'
+	'Jens',
+	2
 );
-INSERT INTO User (id, userName, password, alias) VALUES (
+INSERT INTO User (id, userName, password, alias, clearance) VALUES (
 	NULL,
 	'LadyBeard',
 	'pbkdf2:sha256:150000$IkTnIhuh$387dfe8fd61978dd55016cfebf20abd9f4b3c5b4578c4f4a84db9c2249e98e73',
-	'Tom'
+	'Tom',
+	2
 );
 
 

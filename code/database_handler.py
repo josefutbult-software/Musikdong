@@ -45,12 +45,11 @@ class User():
 	def __init__(self, values):
 
 		# Makes sure the declaration of the object is made by a working dictionary
-		if values.get("id") is None or values.get("username") is None or values.get("password") is None or values.get("alias") is None:
+		if values.get("id") is None or values.get("username") is None or values.get("password") is None or values.get("alias") is None or values.get("clearance") is None:
 			raise IncorrectObjectDeclaration
 
 		self.id = values.get("id")
 		self.username = values.get("username")
 		self.password = values.get("password")
 		self.alias = values.get("alias")
-		
-		
+		self.clearance = values.get("clearance")
