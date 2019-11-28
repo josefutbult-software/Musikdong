@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if args.user != None and args.user.clearance <= 1 %}
+<h2>{{args.userToManage.username}}</h2>
+<form method="post">
+	Alias: <input type="text" name="alias" value ="{{args.userToManage.alias}}">
+	<br>
+	Password: <input type="text" name="password">
+	<br>
+	Clearance: <input type="text" name="clearance" value="{{args.userToManage.clearance}}" {% if args.user.clearance > 0 %} disabled {% endif %}>
+	<hr>
+	<button type="submit">Update</button>
+</form>
+{% endif %}
+
+{% endblock %}

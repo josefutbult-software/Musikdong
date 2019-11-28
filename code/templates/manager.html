@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Manager stuff</h2>
+
+{% if args.user != None and args.user.clearance <= 1 %}
+<h3>Users</h3>
+<div class="box p-3">
+	{% for currentUser in args.users %}
+	<a href="manageUser/{{currentUser.id}}"><h4>{{currentUser.alias}}</h4></a>
+	<hr>
+	{% endfor %}
+</div>
+<h3>Products</h3>
+<div class="box p-3">
+	{% for product in args.products %}
+	<a href="manageProduct/{{product.id}}"><h4>{{product.name}}</h4></a>
+	<hr>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

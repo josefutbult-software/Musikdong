@@ -33,6 +33,11 @@ p  {
 
 	display: flex; 
 	flex-direction: row; 
-	position: absolute;
+    position: fixed;
 	bottom: 0;
+}
+
+.box {
+	background-color: lightgray;
+	text-align: left !important;
 }
