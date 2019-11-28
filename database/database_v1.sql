@@ -303,7 +303,7 @@ INSERT INTO User (id, userName, password, alias) VALUES (
 
 --Cart
 INSERT INTO Cart (userId, productId) VALUES (
-	1,
+	'1',
 	'043821'
 );
 INSERT INTO Cart (userId, productId) VALUES (
