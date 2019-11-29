@@ -107,13 +107,45 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 2. Lägg i kundvagn.
 
 ### Visa kundvagn
+
 1. Tryck på kundvagn i headern
 
 ### Lägg order
+
 1. Öppna kundvagnen
 2. Lägg order
 
 ## Manager
 
+### Visa produkt/användare/ordrar
 
+1. Tryck på _Manager_ i headern.
+2. Navigera till produkt/användare/ordrar
+3. Öppna sida för produkt/användare/ordrar
 
+### Redigera produkt/användare/ordrar
+
+1. Navigera till produkt/användare/ordrar
+2. Redigera produkt/kategori/ordrar
+3. Tryck på _Update_
+
+### Redigera produkt/användare/ordrar
+
+1. Öppna _Manager_.
+2. Tryck på _Add_
+3. Fyll i produkt/användare/ordrar
+4. Tryck på _Add_.
+
+### Radera produkt/användare/ordrar
+
+1. Navigera till produkt/användare/ordrar
+2. Redigera produkt/användare/ordrar
+3. Tryck på _Delete_
+
+## Admin
+
+### Updatera tagtyp/kategori/rättigheter produkt/användare/ordrar
+1. Utförs på samma sätt som produkt/användare/ordrar
+
+### Radera tagtyp/kategor
+1. Utförs på samma sätt som produkt/användare/ordrar
