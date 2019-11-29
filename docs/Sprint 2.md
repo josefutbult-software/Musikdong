@@ -16,7 +16,7 @@ Jag har tillsammans med Josef tagit fram user stories samt gjort en enkel hemsid
 
 ### Josef
 
-Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och et orderItem-table. En grundläggande manager-sida har också lagts till.
+Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och ett orderItem-table. En grundläggande manager-sida har också lagts till.
 
 # Userstories
 
@@ -41,7 +41,7 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
   + Carts
   + Orders
 
-4. Kan få en lista med alla ordrar i manager-menyn, där man ser betalade ordrar samt hanterade ordrar separat
+4. Kan få en lista med alla ordrar i manager-menyn, där man ser betalade ordrar samt hanterade ordrar separat.
 5. Kan lägga till och radera
   + Användare
   + Produkter
@@ -80,7 +80,7 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 
 ### Hitta en produkt
 
-1. Öppna startsida
+1. Öppna startsida.
 2. Navigera till en kategori.
 3. Navigera till en produkt.
 4. Öppna sida för produkt.
@@ -129,7 +129,7 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 2. Redigera produkt/kategori/ordrar
 3. Tryck på _Update_
 
-### Redigera produkt/användare/ordrar
+### Lägga till produkt/användare/ordrar
 
 1. Öppna _Manager_.
 2. Tryck på _Add_
