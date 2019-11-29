@@ -19,7 +19,9 @@ Jag har tillsammans med Josef tagit fram user stories samt gjort en enkel hemsid
 Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och et orderItem-table. En grundläggande managin har också lagts till.
 
 # Userstories
+
 ## Admin
+
 1. Har alla rättigheter som manager.
 2. Kan ändra rättigheter för alla användare på sidan.
 3. Kan lägga till och radera
@@ -27,6 +29,7 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 	+ Tagtyper
 
 ## Manager
+
 1. Har alla rättigheter som en inloggad användare.
 2. Kan öppna en manager meny.
 3. Har tillgång till att redigera alla
@@ -45,6 +48,7 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
   + Taggar
   
 ## Inloggad användare
+
 1. Har alla rättigheter som en icke inloggad användare.
 2. Kan orientera sig mellan kategorier till produkter.
 3. Kan lägga produkter i sin kundvagn.
@@ -53,7 +57,10 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 6. Kan logga ut från sin användare.
 
 ## Icke inloggad användare
+
 2. Kan orientera sig mellan kategorier till produkter.
 3. Kan logga in, eller skapa en användare.
 
 # Nuvarande Backlog
+
+![](https://snipboard.io/VsZz31.jpg)
