@@ -16,5 +16,29 @@ Jag har tillsammans med Josef tagit fram user stories samt gjort en enkel hemsid
 
 ### Josef
 
-Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och et orderItem-table. En grundläggande managin har också laggts till.
+Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och et orderItem-table. En grundläggande managin har också lagts till.
 
+# Userstories
+## Admin
+1. Har alla rättigheter som manager.
+2. Kan ändra rättigheter för alla användare på sidan.
+3. Kan lägga till och radera
+	+ Kategorier
+	+ Tagtyper
+
+## Manager
+1. Kan öppna en manager meny.
+2. Har tillgång till att redigera alla
+  + Användare
+  + Produkter
+  + Kategorier 
+  + Tagtyper
+  + Reviews
+  + Carts
+  + Orders
+
+3. Kan få en lista med alla ordrar i manager-menyn, där man ser betalade ordrar samt hanterade ordrar separat
+4. Kan lägga till och radera
+  + Användare
+  + Produkter
+  + Taggar
