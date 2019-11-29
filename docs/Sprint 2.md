@@ -64,3 +64,7 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 # Nuvarande Backlog
 
 ![](https://snipboard.io/VsZz31.jpg)
+
+# ER-diagram
+
+![](https://snipboard.io/Q965AY.jpg)
