@@ -27,8 +27,9 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 	+ Tagtyper
 
 ## Manager
-1. Kan öppna en manager meny.
-2. Har tillgång till att redigera alla
+1. Har alla rättigheter som en inloggad användare.
+2. Kan öppna en manager meny.
+3. Har tillgång till att redigera alla
   + Användare
   + Produkter
   + Kategorier 
@@ -37,8 +38,20 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
   + Carts
   + Orders
 
-3. Kan få en lista med alla ordrar i manager-menyn, där man ser betalade ordrar samt hanterade ordrar separat
-4. Kan lägga till och radera
+4. Kan få en lista med alla ordrar i manager-menyn, där man ser betalade ordrar samt hanterade ordrar separat
+5. Kan lägga till och radera
   + Användare
   + Produkter
   + Taggar
+  
+## Inloggad användare
+1. Har alla rättigheter som en icke inloggad användare.
+2. Kan orientera sig mellan kategorier till produkter.
+3. Kan lägga produkter i sin kundvagn.
+4. Kan öppna sin kundvagn och se vad som ligger i.
+5. Kan lägga en order som senare hanteras av managers.
+6. Kan logga ut från sin användare.
+
+## Icke inloggad användare
+2. Kan orientera sig mellan kategorier till produkter.
+3. Kan logga in, eller skapa en användare.
