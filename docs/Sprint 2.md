@@ -55,3 +55,5 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 ## Icke inloggad användare
 2. Kan orientera sig mellan kategorier till produkter.
 3. Kan logga in, eller skapa en användare.
+
+# Nuvarande Backlog
