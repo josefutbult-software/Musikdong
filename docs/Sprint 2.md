@@ -16,7 +16,7 @@ Jag har tillsammans med Josef tagit fram user stories samt gjort en enkel hemsid
 
 ### Josef
 
-Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och et orderItem-table. En grundläggande managin har också lagts till.
+Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och et orderItem-table. En grundläggande manager-sida har också lagts till.
 
 # Userstories
 
