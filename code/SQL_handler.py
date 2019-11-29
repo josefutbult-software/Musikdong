@@ -85,6 +85,15 @@ def getAllProductId():
 		return [instance.get("id") for instance in result]
 
 
+def delete_product(id):
+	global connection
+
+	with connection.cursor() as cursor:		
+		cursor.execute("DELETE FROM Products WHERE `id`=%s", (id, ));
+		result = connection.execute()
+
+
+
 def getProductTagsFromDatabase(product):
 	global connection
 

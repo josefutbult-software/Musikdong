@@ -119,13 +119,22 @@ def create_app():
 			abort(404)
 
 		if request.method == 'POST':
-			productToManage.name = request.form['name']
-			productToManage.price = request.form['price']
-			productToManage.description = request.form['description']
-			productToManage.category = request.form['category']
+			try:
+				if request.form['button'] == 'delete':
+					SQL_handler.delete_product(id)
+					return redirect('/')
 
-			SQL_handler.updateProductIntoDatabase(productToManage)
-			
+				int(request.form['price'])
+
+				productToManage.name = request.form['name']
+				productToManage.price = request.form['price']
+				productToManage.description = request.form['description']
+				productToManage.category = request.form['category']
+
+				SQL_handler.updateProductIntoDatabase(productToManage)
+				
+			except:
+				pass
 
 		return render_template('manageProduct.html', args={'users': SQL_handler.getAllUsers(), 'categories': SQL_handler.getCategories(), 'user': user_handler.get_user(), 'productToManage': productToManage})
 

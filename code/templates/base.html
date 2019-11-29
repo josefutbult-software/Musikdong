@@ -20,24 +20,25 @@
 
 <div class="row">
 	<div class="col-md-2"></div>
-	<div class="col-md-8 text-center"> <h1>Musikdong - How long is your musikschlong?</h1> </div>
+	<div class="col-md-8 text-center"><a href="/" class="text-reset"><h1>Musikdong - How long is your musikschlong?</h1></a></div>
+
 	<div class="col-md-2 float-right">
 		{% if args.user != None %}
-		<p>{{args.user.alias}}</p>
-		{% else %}
-		<a href="signup">
-			<button class="btn btn-primary" >Sign up</button>
+		{% if args.user.clearance <= 1 %}
+		<a href="/manager" class="b-3">
+			<button class="btn btn-primary d-inline-block float-right" >Manager</button>
 		</a>
 		{% endif %}
-	</div>
-	<div class="col-md-1 pull-right">
-		{% if args.user != None%}
-		<a href="logout">
-			<button class="btn btn-primary" >Logout</button>
+		<a href="/logout" class="b-3">
+			<button class="btn btn-primary d-inline-block float-right" >Logout</button>
 		</a>
+		<p class="d-inline-block p-3 float-right">{{args.user.alias}}</p>
 		{% else %}
-		<a href="login">
-			<button class="btn btn-primary" >Login</button>
+		<a href="/login" class="b-3">
+			<button class="btn btn-primary d-inline-block float-right" >Login</button>
+		</a>
+		<a href="/signup" class="b-3">
+			<button class="btn btn-primary d-inline-block float-right" >Sign up</button>
 		</a>
 		{% endif %}
 	</div>
