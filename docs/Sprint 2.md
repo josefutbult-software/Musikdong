@@ -68,3 +68,52 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 # ER-diagram
 
 ![](https://snipboard.io/Q965AY.jpg)
+
+# Kodbas
+
+Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). Där ligger även backloggen i form av issues.
+``` https://github.com/JosefUtbult/Musikdong/```
+
+# Tester
+
+## Icke inloggad användare
+
+### Hitta en produkt
+
+1. Öppna startsida
+2. Navigera till en kategori.
+3. Navigera till en produkt.
+4. Öppna sida för produkt.
+
+### Skapa användare
+
+1. Tryck på _Sign Up_.
+2. Välj ett användarnamn.
+	+ Det ska inte gå att välja ett användarnamn som redan är registrerad.
+3. Välj lösenord.
+4. Skapa användare.
+
+### Logga in
+
+1. Tryck på _Login_.
+2. Skriv in användarnamn och lösenord.
+3. Logga in.
+
+## Inloggad användare
+
+### Lägg vara i kundvagn
+
+1. Navigera till en vara.
+2. Lägg i kundvagn.
+
+### Visa kundvagn
+1. Tryck på kundvagn i headern
+
+### Lägg order
+1. Öppna kundvagnen
+2. Lägg order
+
+## Manager
+
+
+
