@@ -151,10 +151,9 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 1. Utförs på samma sätt som produkt/användare/ordrar
 
 # Limitations
- * Säkerhet
-  + Flask kör på en öppen ip
-  + MySQL är öppen för remote login
-  + Mycket går att ta sig runt
-  
+* Säkerhet
+	+ Flask kör på en öppen ip
+	+ MySQL är öppen för remote login
+  	+ Mycket går att ta sig runt
 * Kundvagn
-  + Kundvagnen kan bara hålla en enhet av en produkt för en användare. Orderitems har däremot ett antal.
+  	+ Kundvagnen kan bara hålla en enhet av en produkt för en användare. Orderitems har däremot ett antal.
