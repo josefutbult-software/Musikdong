@@ -18,6 +18,13 @@
 	<hr>
 	{% endfor %}
 </div>
+<h3>Orders</h3>
+<div class="box p-3">
+	{% for order in args.orders %}
+	<a href="manageOrder/{{order.id}}"><h4>{{order.id}} - {{order.username}}</h4></a>
+	<hr>
+	{% endfor %}
+</div>
 {% endif %}
 
 {% endblock %}

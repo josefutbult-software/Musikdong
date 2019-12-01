@@ -7,5 +7,10 @@
 <p>{{args.product.description}}</p>
 <hr>
 <h2>{{args.product.price}} kr</h2>
+{% if args.user != None %}
+<form method="post">
+	<input type="submit" name="submit" value="Order" class="btn btn-primary">
+</form>
+{% endif %}
 
 {% endblock %}

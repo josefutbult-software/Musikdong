@@ -1,5 +1,6 @@
 import default_config
 import pymysql.cursors
+from datetime import date
 from database_handler import *
 
 # Initiates a connection to the mySql database on run
@@ -184,3 +185,108 @@ def update_user(user: User) -> None:
 	with connection.cursor() as cursor:
 		cursor.execute("UPDATE `User` SET `username`=%s, `password`=%s, `alias`=%s, `clearance`=%s WHERE `id`=%s", (user.username, user.password, user.alias, user.clearance, user.id))
 		connection.commit()
+
+
+def get_cart(user: User) -> Product:
+	global connection
+
+	# TODO: Make a better SQL quary using subquerys instead of looping
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM Cart WHERE `userId`=%s", (user.id, ))
+		cart = cursor.fetchall()
+
+		products = []
+		for instance in cart:
+			cursor.execute("SELECT * FROM Products WHERE id=%s", (instance.get("productId"), ))
+			product = Product(cursor.fetchone())
+			product.amount = instance.get("amount")
+			products.append(product)
+		
+		return products
+
+
+def add_to_cart(user: User, product: Product) -> None:
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT EXISTS(SELECT * FROM Cart WHERE userId=%s AND productId=%s)", (user.id, product.id))
+		
+		inDatabase = cursor.fetchone()
+		inDatabase = inDatabase.get(list(inDatabase.keys())[0])
+
+		if inDatabase == 0:
+			cursor.execute("INSERT INTO Cart (userId, productId, amount) VALUES (%s, %s, %s)", (user.id, product.id, 1))
+		else:
+			cursor.execute("UPDATE Cart SET amount=%s WHERE userId=%s AND productId=%s", (inDatabase + 1, user.id, product.id))
+		
+		connection.commit()
+		
+def update_amount(user: User, product: Product, offcet: int) -> None:
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT amount FROM Cart WHERE userId=%s AND productId=%s", (user.id, product.id))
+		
+		if cursor.fetchone().get("amount") + offcet > 0:
+			cursor.execute("UPDATE Cart SET amount=((SELECT amount FROM Cart WHERE userId=%s AND productId=%s) + %s) WHERE userId=%s AND productId=%s", (user.id, product.id, offcet, user.id, product.id))
+		
+		else:
+			cursor.execute("DELETE FROM Cart  WHERE userId=%s AND productId=%s", (user.id, product.id))
+
+		connection.commit()
+
+
+def clear_cart(user: User) -> Product:
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("DELETE FROM Cart WHERE `userId`=%s", (user.id))
+		connection.commit()
+		
+
+def place_order(user: User) -> Product:
+	global connection
+
+	with connection.cursor() as cursor:
+
+		cursor.execute("INSERT INTO Orders (id, userId, orderdate, payed, processed) VALUES (null, %s, %s, %s, %s)", (user.id, date.today().isoformat(), False, False))
+		connection.commit()
+
+		cursor.execute("SELECT id FROM Orders")
+		orders = cursor.fetchall()
+		orderid = max([order.get('id') for order in orders])
+		
+		cursor.execute("SELECT productId FROM Cart WHERE `userId`=%s", (user.id))
+		cart = cursor.fetchall()
+
+		for instance in cart:
+			cursor.execute("INSERT INTO Orderitems (orderId, productId, amount) VALUES (%s, %s, %s)", (orderid, instance.get("productId"), instance.get("amount")))
+			connection.commit()
+
+		cursor.execute("DELETE FROM Cart WHERE userId=%s", (user.id, ))
+		connection.commit()
+
+def get_orders():
+	global connection
+
+	with connection.cursor() as cursor:
+
+		cursor.execute("SELECT * FROM Orders")
+		result = cursor.fetchall()
+		orders = [Order(instance) for instance in result]
+		for order in orders:
+			order.username = getUserById(order.userId).username
+
+		return orders
+
+
+def get_orderitems_by_id(id):
+	global connection
+
+	with connection.cursor() as cursor:
+
+		cursor.execute("SELECT * FROM Orderitems WHERE orderId=%s", (id, ))
+		result = cursor.fetchall()
+		return [Orderitem(instance, getProductFromDatabase(instance.get("productId"))) for instance in result]
+
+

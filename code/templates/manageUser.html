@@ -5,14 +5,36 @@
 {% if args.user != None and args.user.clearance <= 1 %}
 <h2>{{args.userToManage.username}}</h2>
 <form method="post">
+	<input type="hidden" name="formtype" value="userconfig">
 	Alias: <input type="text" name="alias" value ="{{args.userToManage.alias}}">
 	<br>
 	Password: <input type="text" name="password">
 	<br>
-	Clearance: <input type="text" name="clearance" value="{{args.userToManage.clearance}}" {% if args.user.clearance > 0 %} disabled {% endif %}>
-	<hr>
-	<button type="submit">Update</button>
+	Clearance: <input type="text" name="clearance" value="{{args.userToManage.clearance}}" {% if args.user.clearance > 0 %} disabled {% endif %}><br>
+	<button type="submit" class="btn btn-primary mt-3">Update</button>
 </form>
+<hr>
+<h2>Cart</h2>
+<div class="container row">
+	<div class="col-3"></div>
+	<div class="box col-6">
+		{% for instance in args.userToManageCart %}
+		<div class="m-3">
+			<p class="d-inline-block">{{instance.name}}</p>
+			<form method="post" class="float-right d-inline-block">
+				<input type="hidden" name="formtype" value="cartConfig">
+				<input type="hidden" name="productId" value="{{instance.id}}">
+				<input type="submit" name="submit" value="+" class="btn m-2 d-md-inline-block">
+				<p class="d-md-inline-block">{{instance.amount}}</p>
+				<input type="submit" name="submit" value="-" class="btn m-2 d-md-inline-block">
+			</form>
+			<hr>
+		</div>
+		{% endfor %}
+	</div>	
+	<div class="col-3"></div>
+</div>
+<hr>
 {% endif %}
 
 {% endblock %}

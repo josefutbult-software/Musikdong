@@ -110,6 +110,7 @@ DROP TABLE IF EXISTS Cart;
 CREATE TABLE IF NOT EXISTS Cart(
 	`userId` INT NOT NULL,
 	`productId` VARCHAR(6) NOT NULL,
+	`amount` INT,
 	PRIMARY KEY (`userId`, `productId`),
 	FOREIGN KEY (`userId`)
     REFERENCES `User` (`id`)
@@ -363,33 +364,40 @@ INSERT INTO User (id, userName, password, alias, clearance) VALUES (
 
 
 --Cart
-INSERT INTO Cart (userId, productId) VALUES (
-	'1',
-	'043821'
-);
-INSERT INTO Cart (userId, productId) VALUES (
+INSERT INTO Cart (userId, productId, amount) VALUES (
 	1,
-	'183719'
+	'043821',
+	1
 );
-INSERT INTO Cart (userId, productId) VALUES (
+INSERT INTO Cart (userId, productId, amount) VALUES (
 	1,
-	'019302'
+	'183719',
+	1
 );
-INSERT INTO Cart (userId, productId) VALUES (
+INSERT INTO Cart (userId, productId, amount) VALUES (
+	1,
+	'019302',
+	1
+);
+INSERT INTO Cart (userId, productId, amount) VALUES (
 	2,
-	'019302'
+	'019302',
+	1
 );
-INSERT INTO Cart (userId, productId) VALUES (
+INSERT INTO Cart (userId, productId, amount) VALUES (
 	2,
-	'183719'
+	'183719',
+	1
 );
-INSERT INTO Cart (userId, productId) VALUES (
+INSERT INTO Cart (userId, productId, amount) VALUES (
 	3,
-	'043821'
+	'043821',
+	1
 );
-INSERT INTO Cart (userId, productId) VALUES (
+INSERT INTO Cart (userId, productId, amount) VALUES (
 	4,
-	'018183'
+	'018183',
+	1
 );
 
 

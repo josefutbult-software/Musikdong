@@ -26,13 +26,17 @@ def create_app():
 		return render_template('home.html', args={'categories': SQL_handler.getCategories(), 'user': user_handler.get_user()})
 
 
-	@app.route('/product/<id>')
+	@app.route('/product/<id>', methods = ['GET', 'POST'])
 	def product(id):
 		try:
 			product = SQL_handler.getProductFromDatabase(id)
+			
+			if request.method == 'POST':
+				SQL_handler.add_to_cart(user_handler.get_user(), product)
+
 			return render_template('product.html', args={'product': product, 'user': user_handler.get_user()})
 
-		except database_handler.NotInDatabase:
+		except NotInDatabase:
 			abort(404)
 
 
@@ -80,13 +84,33 @@ def create_app():
 
 		return render_template('login.html', args={'user': user_handler.get_user()})
 
+	@app.route('/cart', methods = ['GET', 'POST'])
+	def cart():
+		currentUser = user_handler.get_user()
+		if currentUser is None:	
+			abort(404)
+
+		if request.method == 'POST':
+			if request.form["submit"] == "Delete":
+				SQL_handler.clear_cart(currentUser)
+			elif request.form["submit"] == "+":
+				SQL_handler.update_amount(currentUser, SQL_handler.getProductFromDatabase(request.form["productId"]), 1)
+			elif request.form["submit"] == "-":
+				SQL_handler.update_amount(currentUser, SQL_handler.getProductFromDatabase(request.form["productId"]), -1)
+			else:
+				SQL_handler.place_order(currentUser)
+				flash('Your order is placed.')
+
+
+		return render_template('cart.html', args={'user': currentUser, 'products': SQL_handler.get_cart(currentUser)})
+
 
 	@app.route('/manager', methods = ['GET',])
 	def manager():
 		if user_handler.get_user() is None or user_handler.get_user().clearance > 1:	
 			abort(404)
 
-		return render_template('manager.html', args={'users': SQL_handler.getAllUsers(), 'user': user_handler.get_user(), 'products': SQL_handler.getAllProducts()})
+		return render_template('manager.html', args={'users': SQL_handler.getAllUsers(), 'user': user_handler.get_user(), 'products': SQL_handler.getAllProducts(), 'orders': SQL_handler.get_orders()})
 
 
 	@app.route('/manageUser/<id>', methods = ['GET', 'POST'])
@@ -98,17 +122,24 @@ def create_app():
 
 		if request.method == 'POST':
 
-			userToManage.alias = request.form['alias']
+			if request.form['formtype'] == 'userconfig':
+				userToManage.alias = request.form['alias']
 
-			if user_handler.get_user().clearance == 0:
-				userToManage.clearance = request.form['clearance']
-	
-			if request.form['password'] != "":
-				user_handler.update_password(userToManage, request.form['password'])
-			
-			SQL_handler.update_user(userToManage)
+				if user_handler.get_user().clearance == 0:
+					userToManage.clearance = request.form['clearance']
+		
+				if request.form['password'] != "":
+					user_handler.update_password(userToManage, request.form['password'])
+				
+				SQL_handler.update_user(userToManage)
+			else:
+				if request.form["submit"] == "+":
+					SQL_handler.update_amount(userToManage, SQL_handler.getProductFromDatabase(request.form["productId"]), 1)
+				elif request.form["submit"] == "-":
+					SQL_handler.update_amount(userToManage, SQL_handler.getProductFromDatabase(request.form["productId"]), -1)
 
-		return render_template('manageUser.html', args={'users': SQL_handler.getAllUsers(), 'user': user_handler.get_user(), 'userToManage': userToManage})
+
+		return render_template('manageUser.html', args={'users': SQL_handler.getAllUsers(), 'user': user_handler.get_user(), 'userToManage': userToManage, 'userToManageCart': SQL_handler.get_cart(userToManage)})
 
 
 	@app.route('/manageProduct/<id>', methods = ['GET', 'POST'])
@@ -138,6 +169,12 @@ def create_app():
 
 		return render_template('manageProduct.html', args={'users': SQL_handler.getAllUsers(), 'categories': SQL_handler.getCategories(), 'user': user_handler.get_user(), 'productToManage': productToManage})
 
+
+	@app.route('/manageOrder/<id>')
+	def manageOrder(id):
+
+		print(len(SQL_handler.get_orderitems_by_id(id)))
+		return render_template('manageOrder.html', args={'user': user_handler.get_user(), 'users': SQL_handler.getAllUsers(), 'orders': SQL_handler.get_orderitems_by_id(id)})
 
 	return app
 	

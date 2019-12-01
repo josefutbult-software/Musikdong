@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if args.user != None and args.user.clearance <= 1 %}
+<div class="box m-3">
+	{% for order in args.orders %}
+	<p>{{order.product.name}} - {{order.amount}}</p>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

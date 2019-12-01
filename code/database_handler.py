@@ -53,3 +53,24 @@ class User():
 		self.password = values.get("password")
 		self.alias = values.get("alias")
 		self.clearance = values.get("clearance")
+
+class Order():
+	def __init__(self, values):
+		if values.get("id") is None or values.get("userId") is None or values.get("orderdate") is None or values.get("payed") is None or values.get("processed") is None:
+			raise IncorrectObjectDeclaration
+
+		self.id = values.get("id")
+		self.userId = values.get("userId")
+		self.orderdate = values.get("orderdate")
+		self.payed = values.get("payed")
+		self.processed = values.get("processed")
+
+class Orderitem():
+	def __init__(self, values, product):
+		if values.get("orderId") is None or values.get("productId") is None or values.get("amount") is None:
+			raise IncorrectObjectDeclaration
+
+		self.orderId = values.get("orderId")
+		self.productId = values.get("productId")
+		self.amount = values.get("amount")
+		self.product = product
