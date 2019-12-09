@@ -365,39 +365,39 @@ INSERT INTO User (id, userName, password, alias, clearance) VALUES (
 );
 
 
---Cart
+-- Cart
 INSERT INTO Cart (userId, productId, amount) VALUES (
-	1,
+	'1',
 	'043821',
 	1
 );
 INSERT INTO Cart (userId, productId, amount) VALUES (
-	1,
+	'1',
 	'183719',
 	1
 );
 INSERT INTO Cart (userId, productId, amount) VALUES (
-	1,
+	'1',
 	'019302',
 	1
 );
 INSERT INTO Cart (userId, productId, amount) VALUES (
-	2,
+	'2',
 	'019302',
 	1
 );
 INSERT INTO Cart (userId, productId, amount) VALUES (
-	2,
+	'2',
 	'183719',
 	1
 );
 INSERT INTO Cart (userId, productId, amount) VALUES (
-	3,
+	'3',
 	'043821',
 	1
 );
 INSERT INTO Cart (userId, productId, amount) VALUES (
-	4,
+	'4',
 	'018183',
 	1
 );
