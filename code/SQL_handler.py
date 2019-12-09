@@ -267,8 +267,10 @@ def updatecart_amount(user: User, product: Product, offcet: int) -> None:
 		cursor.execute("SELECT amount FROM Cart WHERE userId=%s AND productId=%s", (user.id, product.id))
 		
 		if cursor.fetchone().get("amount") + offcet > 0:
-			cursor.execute("UPDATE Cart SET `amount`=((SELECT `amount` FROM Cart WHERE `userId`=%s AND `productId`=%s) + %s) WHERE userId=%s AND productId=%s", (user.id, product.id, offcet, user.id, product.id))
-		
+			cursor.execute("SELECT `amount` FROM Cart WHERE `userId`=%s AND `productId`=%s", (user.id, product.id))
+
+			cursor.execute("UPDATE Cart SET `amount`=%s WHERE userId=%s AND productId=%s", (cursor.fetchone()["amount"] + offcet, user.id, product.id))
+			
 		else:
 			cursor.execute("DELETE FROM Cart  WHERE userId=%s AND productId=%s", (user.id, product.id))
 
