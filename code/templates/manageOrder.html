@@ -3,10 +3,65 @@
 {% block content %}
 
 {% if args.user != None and args.user.clearance <= 1 %}
-<div class="box m-3">
-	{% for order in args.orders %}
-	<p>{{order.product.name}} - {{order.amount}}</p>
+
+<h2 class="h2">Order {{args.order.id}} - {{args.orderUser.alias}}</h2>
+
+<form method="post">
+	<div>
+		<form method="post">
+			<input type="hidden" name="type" value="order">
+			<div class="row">
+				<div class="col-6 ">
+					<p class="m-1 float-right">Payed</p>
+				</div>
+				<div class="col-6">
+					<input type="checkbox" name="payed" class=" float-left m-1" {% if args.order.payed %}checked{% endif %}>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-6 ">
+					<p class="m-1 float-right">Processed</p>
+				</div>
+				<div class="col-6">
+					<input type="checkbox" name="processed" class=" float-left m-1" {% if args.order.processed %}checked{% endif %}>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-6 ">
+					<p class="m-1 float-right">Orderdate</p>
+				</div>
+				<div class="col-6">
+					<input type="date" name="orderdate" class="float-left" value="{{args.order.orderdate.strftime('%Y-%m-%d')}}">
+				</div>
+			</div>
+			
+			<input type="submit" name="submit" value="Update" class="btn btn-primary m-2">
+		</form>
+
+	</div>
+</form>
+
+<div class="box p-3">
+	{% for instance in args.orderitems %}
+	<h4 class="h4 m-2 d-inline-block">{{instance.product.name}}</h4>
+	<form method="post" class="float-right">
+		<input type="hidden" name="type" value="orderitem">
+		<input type="hidden" name="productId" value="{{instance.productId}}">
+		<input type="submit" name="submit" value="+" class="btn m-2 d-md-inline-block">
+		<p class="d-md-inline-block">{{instance.amount}}</p>
+		<input type="submit" name="submit" value="-" class="btn m-2 d-md-inline-block">
+	</form>
+	<hr>
 	{% endfor %}
+</div>
+
+<div>
+	<form method="post">
+		<input type="hidden" name="type" value="delete">
+		<input type="submit" name="submit" value="Delete" class="btn btn-warning m-2">
+	</form>
 </div>
 {% endif %}
 

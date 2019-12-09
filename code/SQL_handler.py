@@ -71,7 +71,7 @@ def updateProductIntoDatabase(product: Product) -> None:
 		raise TypeError
 
 	with connection.cursor() as cursor:		
-		cursor.execute("UPDATE `Products` SET `name`=%s, `price`=%s, `description`=%s, `imageUrl`=%s, `category`=%s WHERE `id`=%s", (product.name, product.price, product.description, product.imageUrl, product.category, product.id));
+		cursor.execute("UPDATE `Products` SET `name`=%s, `price`=%s, `description`=%s, `imageUrl`=%s, `category`=%s WHERE `id`=%s", (product.name, int(float(product.price)), product.description, product.imageUrl, product.category, product.id));
 		connection.commit()		
 
 
@@ -91,8 +91,23 @@ def delete_product(id):
 
 	with connection.cursor() as cursor:		
 		cursor.execute("DELETE FROM Products WHERE `id`=%s", (id, ));
-		result = connection.execute()
+		result = connection.commit()
 
+def generate_productId():
+	global connection
+
+	id = str(randint(0, 999999))
+
+	with connection.cursor() as cursor:
+		
+		while True:
+			cursor.execute("SELECT EXISTS(SELECT * FROM Products WHERE id=%s)", (id))
+			inDatabase = cursor.fetchone()
+
+			if not inDatabase.get(list(inDatabase.keys())[0]):
+				return id
+
+			id = str(randint(0, 999999))
 
 
 def getProductTagsFromDatabase(product):
@@ -128,6 +143,29 @@ def getCategories():
 		cursor.execute("SELECT * FROM Category")
 		result = cursor.fetchall()
 		return [instance.get("name") for instance in result]
+
+
+def deleteCategory(name):
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("DELETE FROM Category WHERE name=%s", (name, ))
+		connection.commit()
+
+
+def addCategory(name):
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("INSERT INTO Category (name) VALUES (%s)", (name, ))
+		connection.commit()
+
+def updateCategory(oldname, newname):
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("UPDATE Category SET name=%s WHERE name=%s", (newname, oldname))
+		connection.commit()
 
 
 def getUserById(id):
@@ -220,8 +258,9 @@ def add_to_cart(user: User, product: Product) -> None:
 			cursor.execute("UPDATE Cart SET amount=%s WHERE userId=%s AND productId=%s", (inDatabase + 1, user.id, product.id))
 		
 		connection.commit()
+
 		
-def update_amount(user: User, product: Product, offcet: int) -> None:
+def updatecart_amount(user: User, product: Product, offcet: int) -> None:
 	global connection
 
 	with connection.cursor() as cursor:
@@ -256,15 +295,16 @@ def place_order(user: User) -> Product:
 		orders = cursor.fetchall()
 		orderid = max([order.get('id') for order in orders])
 		
-		cursor.execute("SELECT productId FROM Cart WHERE `userId`=%s", (user.id))
+		cursor.execute("SELECT * FROM Cart WHERE `userId`=%s", (user.id))
 		cart = cursor.fetchall()
 
 		for instance in cart:
-			cursor.execute("INSERT INTO Orderitems (orderId, productId, amount) VALUES (%s, %s, %s)", (orderid, instance.get("productId"), instance.get("amount")))
+			cursor.execute("INSERT INTO Orderitems (orderId, productId, amount) VALUES (%s, %s, %s)", (orderid, instance.get("productId"), instance.get("amount")))			
 			connection.commit()
 
 		cursor.execute("DELETE FROM Cart WHERE userId=%s", (user.id, ))
 		connection.commit()
+
 
 def get_orders():
 	global connection
@@ -280,6 +320,23 @@ def get_orders():
 		return orders
 
 
+def get_order(id):
+	global connection
+
+	with connection.cursor() as cursor:
+
+		cursor.execute("SELECT * FROM Orders WHERE id=%s", (id, ))
+		return Order(cursor.fetchone())
+
+def delete_order(id):
+	global connection
+
+	with connection.cursor() as cursor:
+
+		cursor.execute("DELETE FROM Orders WHERE id=%s", (id, ))
+		connection.commit()
+
+
 def get_orderitems_by_id(id):
 	global connection
 
@@ -289,4 +346,27 @@ def get_orderitems_by_id(id):
 		result = cursor.fetchall()
 		return [Orderitem(instance, getProductFromDatabase(instance.get("productId"))) for instance in result]
 
+
+def updateorder(order: Order) -> None:
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("UPDATE Orders SET userId=%s, orderdate=%s, payed=%s, processed=%s WHERE id=%s", (order.userId, order.orderdate, order.payed, order.processed, order.id))
+		connection.commit()
+
+
+
+def updateorder_amount(order: Order, product: Product, offcet: int) -> None:
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT amount FROM Orderitems WHERE orderId=%s AND productId=%s", (order.id, product.id))
+		
+		if cursor.fetchone().get("amount") + offcet > 0:
+			cursor.execute("UPDATE Orderitems SET amount=((SELECT amount FROM Orderitems WHERE orderId=%s AND productId=%s) + %s) WHERE orderId=%s AND productId=%s", (order.id, product.id, offcet, order.id, product.id))
+		
+		else:
+			cursor.execute("DELETE FROM Orderitems WHERE orderId=%s AND productId=%s", (order.id, product.id))
+
+		connection.commit()
 

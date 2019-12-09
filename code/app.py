@@ -1,6 +1,7 @@
 import sys, os
-from flask import Flask, request, redirect, render_template, abort, session, flash
-
+from flask import Flask, request, redirect, render_template, abort, session, flash, url_for
+from datetime import datetime
+from random import randint, seed
 import default_config
 from database_handler import *
 import user_handler
@@ -11,6 +12,7 @@ else:
 	import dummy_database as SQL_handler
 
 def create_app():
+	seed(datetime.now())
 	app = Flask(__name__, instance_relative_config=True)
 	app.secret_key = os.urandom(24)
 
@@ -94,9 +96,9 @@ def create_app():
 			if request.form["submit"] == "Delete":
 				SQL_handler.clear_cart(currentUser)
 			elif request.form["submit"] == "+":
-				SQL_handler.update_amount(currentUser, SQL_handler.getProductFromDatabase(request.form["productId"]), 1)
+				SQL_handler.updatecart_amount(currentUser, SQL_handler.getProductFromDatabase(request.form["productId"]), 1)
 			elif request.form["submit"] == "-":
-				SQL_handler.update_amount(currentUser, SQL_handler.getProductFromDatabase(request.form["productId"]), -1)
+				SQL_handler.updatecart_amount(currentUser, SQL_handler.getProductFromDatabase(request.form["productId"]), -1)
 			else:
 				SQL_handler.place_order(currentUser)
 				flash('Your order is placed.')
@@ -110,8 +112,7 @@ def create_app():
 		if user_handler.get_user() is None or user_handler.get_user().clearance > 1:	
 			abort(404)
 
-		return render_template('manager.html', args={'users': SQL_handler.getAllUsers(), 'user': user_handler.get_user(), 'products': SQL_handler.getAllProducts(), 'orders': SQL_handler.get_orders()})
-
+		return render_template('manager.html', args={'users': SQL_handler.getAllUsers(), 'user': user_handler.get_user(), 'products': SQL_handler.getAllProducts(), 'orders': SQL_handler.get_orders(), 'categories': SQL_handler.getCategories()})
 
 	@app.route('/manageUser/<id>', methods = ['GET', 'POST'])
 	def manageUser(id):
@@ -134,12 +135,43 @@ def create_app():
 				SQL_handler.update_user(userToManage)
 			else:
 				if request.form["submit"] == "+":
-					SQL_handler.update_amount(userToManage, SQL_handler.getProductFromDatabase(request.form["productId"]), 1)
+					SQL_handler.updatecart_amount(userToManage, SQL_handler.getProductFromDatabase(request.form["productId"]), 1)
 				elif request.form["submit"] == "-":
-					SQL_handler.update_amount(userToManage, SQL_handler.getProductFromDatabase(request.form["productId"]), -1)
+					SQL_handler.updatecart_amount(userToManage, SQL_handler.getProductFromDatabase(request.form["productId"]), -1)
 
 
 		return render_template('manageUser.html', args={'users': SQL_handler.getAllUsers(), 'user': user_handler.get_user(), 'userToManage': userToManage, 'userToManageCart': SQL_handler.get_cart(userToManage)})
+
+
+	@app.route('/addProduct', methods = ['GET', 'POST'])
+	def addProduct():
+
+		productBuffer = {
+			'name': '',
+			'price': '',
+			'description': '',
+			'category': '',
+			'imageUrl': 'None',
+			'id': SQL_handler.generate_productId()
+		}
+
+		if request.method == 'POST':
+			productBuffer['name'] = request.form['name']
+			productBuffer['price'] = request.form['price']
+			productBuffer['description'] = request.form['description']
+			productBuffer['category'] = request.form['category']
+
+			if not '' in (productBuffer['name'], productBuffer['price'], productBuffer['description'], productBuffer['category']):
+				try:
+					SQL_handler.insertProductIntoDatabase(Product(productBuffer))
+					flash("Added product")
+					return redirect(url_for('.manager'))
+				except:
+					flash("Could not add product")
+			else:
+				flash("Empty fields")
+
+		return render_template('addProduct.html', args={'user': user_handler.get_user(), 'categories': SQL_handler.getCategories(), 'productBuffer': productBuffer})
 
 
 	@app.route('/manageProduct/<id>', methods = ['GET', 'POST'])
@@ -153,7 +185,7 @@ def create_app():
 			try:
 				if request.form['button'] == 'delete':
 					SQL_handler.delete_product(id)
-					return redirect('/')
+					return redirect(url_for('.manager'))
 
 				int(request.form['price'])
 
@@ -164,19 +196,75 @@ def create_app():
 
 				SQL_handler.updateProductIntoDatabase(productToManage)
 				
-			except:
-				pass
+			except Exception as e:
+				print(e)
 
 		return render_template('manageProduct.html', args={'users': SQL_handler.getAllUsers(), 'categories': SQL_handler.getCategories(), 'user': user_handler.get_user(), 'productToManage': productToManage})
 
 
-	@app.route('/manageOrder/<id>')
+	@app.route('/manageOrder/<id>', methods = ['GET', 'POST'])
 	def manageOrder(id):
 
-		print(len(SQL_handler.get_orderitems_by_id(id)))
-		return render_template('manageOrder.html', args={'user': user_handler.get_user(), 'users': SQL_handler.getAllUsers(), 'orders': SQL_handler.get_orderitems_by_id(id)})
+		order = SQL_handler.get_order(id)
+
+		if request.method == 'POST':
+			
+			if request.form["type"] == "orderitem":
+				if request.form["submit"] == "+":
+					SQL_handler.updateorder_amount(order, SQL_handler.getProductFromDatabase(request.form["productId"]), 1)
+				elif request.form["submit"] == "-":
+					SQL_handler.updateorder_amount(order, SQL_handler.getProductFromDatabase(request.form["productId"]), -1)
+			elif request.form["type"] == "delete":
+				SQL_handler.delete_order(order.id)
+				return redirect(url_for('manager'))
+			elif request.form["type"] == "order":
+				try:
+					order.payed = request.form.get("payed") == 'on'
+					order.processed = request.form.get("processed") == 'on'
+					order.orderdate = datetime.strptime(request.form.get("orderdate"), "%Y-%m-%d")
+				
+					SQL_handler.updateorder(order)
+				except:
+					pass
+
+		return render_template('manageOrder.html', args={'user': user_handler.get_user(), 'orderUser': SQL_handler.getUserById(order.userId), 'order': order, 'orderitems': SQL_handler.get_orderitems_by_id(id)})
+
+
+	@app.route('/manageCategory/<name>', methods = ['GET', 'POST'])
+	def manageCategory(name):
+
+		if not name in SQL_handler.getCategories():
+			abort(404)
+
+		if request.method == 'POST':
+			
+			if request.form["submit"] == "Delete":
+				SQL_handler.deleteCategory(name)
+				return redirect('/manager')
+			else:
+				SQL_handler.updateCategory(oldname=name, newname=request.form["name"])
+				return redirect(f'/manageCategory/{request.form["name"]}')
+
+		return render_template('manageCategory.html', args={'user': user_handler.get_user(), 'category': name})
+
+
+	@app.route('/addCategory', methods = ['GET', 'POST'])
+	def addCategory():
+		
+		if request.method == 'POST':
+			name = request.form["name"]
+			try:
+				SQL_handler.addCategory(request.form["name"])
+				return redirect('/manager')
+			except:
+				flash("Cant add Category")
+		else:
+			name = ""
+
+		return render_template('/addCategory.html', args={'user': user_handler.get_user(), 'category': name})
 
 	return app
+
 	
 
 if __name__ == "__main__":

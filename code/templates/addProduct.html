@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if args.user != None and args.user.clearance <= 1 %}
+<form method="post">
+	Name: <input type="text" name="name" value ="{{ args.productBuffer.name }}">
+	<br>
+	Price: <input type="text" name="price" value="{{ args.productBuffer.price }}">
+	<br>
+	Description: <textarea name="description" rows="4" cols="50">{{ args.productBuffer.description }}</textarea>
+	<br>
+	Category: <select name="category">
+		{% for category in args.categories %}
+		<option value="{{category}}" {% if category == args.productBuffer.category %} selected="selected" {% endif %}>{{category}}</option>
+		{% endfor %}
+	</select>
+	<hr>
+	<button type="submit" name="button" value="submit" class="btn btn-primary d-inline-block float-right">Add</button>
+
+</form>
+{% endif %}
+
+{% endblock %}

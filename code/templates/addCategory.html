@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if args.user != None and args.user.clearance == 0 %}
+<h2>Add category</h2>
+
+<div>
+	<form method="post">
+		<div class="row">
+			<div class="col-6">
+				<p class="float-right">Name: </p>
+			</div>
+			<div class="col-6">
+				<input class="float-left" type="text" name="name" value="{{args.category}}">
+			</div>
+		</div>
+		<input type="submit" name="submit" value="Add" class="btn btn-primary m-2">
+	</form>
+</div>
+
+{% endif %}
+
+{% endblock %}
