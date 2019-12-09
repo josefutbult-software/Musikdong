@@ -41,6 +41,8 @@ CREATE TABLE IF NOT EXISTS Products (
 	`category` VARCHAR(45) NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (category) REFERENCES Category(name)
+	ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 -- Create table TagTypes
@@ -72,7 +74,7 @@ CREATE TABLE IF NOT EXISTS Tag (
 	FOREIGN KEY (`productId`)
     REFERENCES `musikdong`.`Products` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
     FOREIGN KEY (`tagTypeName`)
     REFERENCES `musikdong`.`TagTypes` (`name`)
     ON DELETE CASCADE
@@ -115,11 +117,11 @@ CREATE TABLE IF NOT EXISTS Cart(
 	FOREIGN KEY (`userId`)
     REFERENCES `User` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
     FOREIGN KEY (`productId`)
     REFERENCES `Products` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION
+    ON UPDATE CASCADE
 );
 
 -- Create table Review
@@ -140,11 +142,11 @@ CREATE TABLE IF NOT EXISTS Review (
 	FOREIGN KEY (`userId`)
     REFERENCES `musikdong`.`User` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
     FOREIGN KEY (`productId`)
     REFERENCES `musikdong`.`Products` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION
+    ON UPDATE CASCADE
 );
 
 -- Create table Orders
@@ -169,7 +171,7 @@ CREATE TABLE IF NOT EXISTS Orders (
     FOREIGN KEY (`userId`)
     REFERENCES `musikdong`.`User` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION
+    ON UPDATE CASCADE
 );
 
 -- Create table Orderitems
@@ -189,11 +191,11 @@ CREATE TABLE IF NOT EXISTS Orderitems(
 	FOREIGN KEY (`orderId`)
     REFERENCES `Orders` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
     FOREIGN KEY (`productId`)
     REFERENCES `Products` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION
+    ON UPDATE CASCADE
 );
 
 -- Turn on security checks
