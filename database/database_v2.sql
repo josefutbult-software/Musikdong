@@ -131,6 +131,7 @@ CREATE TABLE IF NOT EXISTS Cart(
 -- | userId    | int(11)     | NO   | PRI | NULL    |       |
 -- | productId | varchar(45) | NO   | PRI | NULL    |       |
 -- | rating    | int(11)     | YES  |     | NULL    |       |
+-- | review    | longtext    | YES  |     | NULL    |       |
 -- +-----------+-------------+------+-----+---------+-------+
 
 DROP TABLE IF EXISTS Review;
@@ -138,6 +139,7 @@ CREATE TABLE IF NOT EXISTS Review (
 	`userId` INT NOT NULL,
 	`productId` VARCHAR(45) NOT NULL,
 	`rating` INT NULL,
+	`review` LONGTEXT,
 	PRIMARY KEY (`userId`, `productId`),
 	FOREIGN KEY (`userId`)
     REFERENCES `musikdong`.`User` (`id`)
@@ -404,26 +406,43 @@ INSERT INTO Cart (userId, productId, amount) VALUES (
 
 
 -- Review
-INSERT INTO Review (userId, productId, rating) VALUES (
+INSERT INTO Review (userId, productId, rating, review) VALUES (
 	1,
 	'043821',
-	4
+	4,
+	"Quite good"
 );
-INSERT INTO Review (userId, productId, rating) VALUES (
+INSERT INTO Review (userId, productId, rating, review) VALUES (
+	2,
+	'043821',
+	2,
+	"Wouldnt fit up my ass"
+);
+INSERT INTO Review (userId, productId, rating, review) VALUES (
+	3,
+	'043821',
+	5,
+	"Sounds nice"
+);
+INSERT INTO Review (userId, productId, rating, review) VALUES (
 	1,
 	'183719',
-	2
+	2,
+	""
 );
-INSERT INTO Review (userId, productId, rating) VALUES (
+INSERT INTO Review (userId, productId, rating, review) VALUES (
 	2,
 	'019302',
-	5
+	5,
+	""
 );
-INSERT INTO Review (userId, productId, rating) VALUES (
+INSERT INTO Review (userId, productId, rating, review) VALUES (
 	3,
 	'183719',
-	5
+	5,
+	""
 );
+
 
 -- Order
 INSERT INTO Orders (id, userId, orderdate, payed, processed) VALUES(

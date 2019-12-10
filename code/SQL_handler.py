@@ -225,7 +225,7 @@ def update_user(user: User) -> None:
 		connection.commit()
 
 
-def get_cart(user: User) -> Product:
+def get_cart(user: User):
 	global connection
 
 	# TODO: Make a better SQL quary using subquerys instead of looping
@@ -371,4 +371,29 @@ def updateorder_amount(order: Order, product: Product, offcet: int) -> None:
 			cursor.execute("DELETE FROM Orderitems WHERE orderId=%s AND productId=%s", (order.id, product.id))
 
 		connection.commit()
+
+# Fick Hjälp av Kitty
+def setReview(review: Review) -> None:	
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("INSERT INTO Review (userId, productId, rating, review) VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE rating=%s, review=%s", (review.userId, review.productId, review.rating, review.review, review.rating, review.review))
+		connection.commit()
+
+
+def getReveiw(user: User, product: Product) -> None:
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM Review WHERE userId=%s AND productId=%s", (user.id, product.id))
+		return Review(cursor.fetchone())
+
+
+def getReviewByProduct(product: Product) -> None:
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM Review WHERE productId=%s", (product.id, ))
+		result = cursor.fetchall()
+		return [Review(instance) for instance in result]
 

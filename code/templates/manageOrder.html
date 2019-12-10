@@ -53,8 +53,12 @@
 		<p class="d-md-inline-block">{{instance.amount}}</p>
 		<input type="submit" name="submit" value="-" class="btn m-2 d-md-inline-block">
 	</form>
+	<p class="float-right m-3">{{instance.product.price * instance.amount}} kr</p>
 	<hr>
 	{% endfor %}
+	<h4 class="h4 m-2 d-inline-block">Total</h4>
+	<p class="float-right m-3">{{args.price}} kr</p>
+
 </div>
 
 <div>

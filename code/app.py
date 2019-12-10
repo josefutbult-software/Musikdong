@@ -33,10 +33,29 @@ def create_app():
 		try:
 			product = SQL_handler.getProductFromDatabase(id)
 			
-			if request.method == 'POST':
-				SQL_handler.add_to_cart(user_handler.get_user(), product)
+			if user_handler.get_user() != None:
+				try:
+					userReview = SQL_handler.getReveiw(user_handler.get_user(), product)
+				except:
+					userReview = None
 
-			return render_template('product.html', args={'product': product, 'user': user_handler.get_user()})
+				if request.method == 'POST':
+					if request.form["submit"] == 'Order':
+						SQL_handler.add_to_cart(user_handler.get_user(), product)
+					elif request.form["submit"] == 'Review':
+						userReview = Review({'userId': user_handler.get_user().id, 'productId': product.id, 'rating': request.form["rating"], 'review': request.form["review"]})
+						SQL_handler.setReview(userReview)
+
+			else:
+				userReview = None
+
+			reviews = SQL_handler.getReviewByProduct(product)
+			
+			for review in reviews:
+				review.user = SQL_handler.getUserById(review.userId)
+
+
+			return render_template('product.html', args={'product': product, 'user': user_handler.get_user(), 'reviews': reviews, 'userReview': userReview})
 
 		except NotInDatabase:
 			abort(404)
@@ -88,6 +107,9 @@ def create_app():
 
 	@app.route('/cart', methods = ['GET', 'POST'])
 	def cart():
+		if user_handler.get_user() is None:	
+			abort(404)
+
 		currentUser = user_handler.get_user()
 		if currentUser is None:	
 			abort(404)
@@ -104,7 +126,7 @@ def create_app():
 				flash('Your order is placed.')
 
 
-		return render_template('cart.html', args={'user': currentUser, 'products': SQL_handler.get_cart(currentUser)})
+		return render_template('cart.html', args={'user': currentUser, 'products': SQL_handler.get_cart(currentUser), 'price': sum([product.price * product.amount for product in SQL_handler.get_cart(currentUser)])})
 
 
 	@app.route('/manager', methods = ['GET',])
@@ -145,6 +167,8 @@ def create_app():
 
 	@app.route('/addProduct', methods = ['GET', 'POST'])
 	def addProduct():
+		if user_handler.get_user() is None or user_handler.get_user().clearance > 1:	
+			abort(404)
 
 		productBuffer = {
 			'name': '',
@@ -207,6 +231,9 @@ def create_app():
 
 		order = SQL_handler.get_order(id)
 
+		if user_handler.get_user() is None or user_handler.get_user().clearance > 1 or order is None:	
+			abort(404)
+
 		if request.method == 'POST':
 			
 			if request.form["type"] == "orderitem":
@@ -227,13 +254,19 @@ def create_app():
 				except:
 					pass
 
-		return render_template('manageOrder.html', args={'user': user_handler.get_user(), 'orderUser': SQL_handler.getUserById(order.userId), 'order': order, 'orderitems': SQL_handler.get_orderitems_by_id(id)})
+		productsInOrder = []
+		for orderitem in SQL_handler.get_orderitems_by_id(id):
+			productsInOrder.append(SQL_handler.getProductFromDatabase(orderitem.productId))
+			productsInOrder[-1].amount = orderitem.amount
+
+		price = sum([product.price * product.amount for product in productsInOrder])
+
+		return render_template('manageOrder.html', args={'user': user_handler.get_user(), 'orderUser': SQL_handler.getUserById(order.userId), 'order': order, 'orderitems': SQL_handler.get_orderitems_by_id(id), 'price': price})
 
 
 	@app.route('/manageCategory/<name>', methods = ['GET', 'POST'])
 	def manageCategory(name):
-
-		if not name in SQL_handler.getCategories():
+		if user_handler.get_user() is None or user_handler.get_user().clearance > 0 or not name in SQL_handler.getCategories():
 			abort(404)
 
 		if request.method == 'POST':
@@ -250,6 +283,8 @@ def create_app():
 
 	@app.route('/addCategory', methods = ['GET', 'POST'])
 	def addCategory():
+		if user_handler.get_user() is None or user_handler.get_user().clearance > 0:	
+			abort(404)
 		
 		if request.method == 'POST':
 			name = request.form["name"]

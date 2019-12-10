@@ -12,5 +12,28 @@
 	<input type="submit" name="submit" value="Order" class="btn btn-primary">
 </form>
 {% endif %}
+<div class="box m-2 p-2">
+	{% for review in args.reviews %}
+	<div class="m-2">
+		<h4 class="h4">{{review.user.username}} - {{review.rating}}/5 schlongs</h4>
+		<p>{{review.review}}</p>
+	</div>
+	<hr>
+	{% endfor %}
+</div>
 
+{% if args.user != None %}
+<div>
+	<h4>Your review</h4>
+	<form method="post">
+		<div class="float-center d-inline-block">
+			<input type="range" name="rating" min="1" max="5" value="{{args.userReview.rating}}" class="d-inline-block" onchange="(function(){$('#rating').html($('input[type=range]').val() + '/5 schlongs')})()">
+			<p id="rating" class="ml-2 d-inline-block m-2">{{args.userReview.rating}}/5 schlongs</p>
+			<textarea name="review" rows="4" cols="50" class="d-inline-block">{{args.userReview.review}}</textarea>
+		</div>
+		<br>
+		<input type="submit" name="submit" value="Review" class="btn btn-primary m-3">
+	</form>
+</div>
+{% endif %}
 {% endblock %}

@@ -26,6 +26,7 @@
 	{% endfor %}
 </div>
 
+{% if args.user.clearance == 0 %}
 <h3>Categories</h3>
 <a href="{{ url_for('addCategory') }}"><button class="btn btn-primary m-2">Add</button></a>
 <div class="box p-3">
@@ -36,7 +37,7 @@
 	<hr>
 	{% endfor %}
 </div>
-
+{% endif %}
 
 <h3>Products</h3>
 <a href="{{ url_for('addProduct') }}"><button class="btn btn-primary m-2">Add</button></a>

@@ -23,7 +23,7 @@ class Product():
 
 		self.id = values.get("id")
 		self.name = values.get("name")
-		self.price = values.get("price")
+		self.price = int(float(values.get("price")))
 		self.description = values.get("description")
 		self.imageUrl = values.get("imageUrl")
 		self.category = values.get("category")
@@ -54,6 +54,7 @@ class User():
 		self.alias = values.get("alias")
 		self.clearance = values.get("clearance")
 
+
 class Order():
 	def __init__(self, values):
 		if values.get("id") is None or values.get("userId") is None or values.get("orderdate") is None or values.get("payed") is None or values.get("processed") is None:
@@ -65,6 +66,7 @@ class Order():
 		self.payed = values.get("payed")
 		self.processed = values.get("processed")
 
+
 class Orderitem():
 	def __init__(self, values, product):
 		if values.get("orderId") is None or values.get("productId") is None or values.get("amount") is None:
@@ -74,3 +76,14 @@ class Orderitem():
 		self.productId = values.get("productId")
 		self.amount = values.get("amount")
 		self.product = product
+
+
+class Review():
+	def __init__(self, values):
+		if values.get("userId") is None or values.get("productId") is None or values.get("rating") is None or values.get("review") is None:
+			raise IncorrectObjectDeclaration
+
+		self.userId = values.get("userId")
+		self.productId = values.get("productId")
+		self.rating = values.get("rating")
+		self.review = values.get("review")
