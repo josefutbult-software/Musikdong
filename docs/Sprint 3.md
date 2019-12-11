@@ -56,9 +56,10 @@ Jag har byggt klart manager-sidan med möjlighet att lägga till produkter och k
 1. Har alla rättigheter som en icke inloggad användare.
 2. Kan orientera sig mellan kategorier till produkter.
 3. Kan lägga produkter i sin kundvagn.
-4. Kan öppna sin kundvagn och se vad som ligger i.
-5. Kan lägga en order som senare hanteras av managers.
-6. Kan logga ut från sin användare.
+4. Kan lägga en review på en produkt.
+5. Kan öppna sin kundvagn och se vad som ligger i.
+6. Kan lägga en order som senare hanteras av managers.
+7. Kan logga ut från sin användare.
 
 ## Icke inloggad användare
 
