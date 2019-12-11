@@ -20,6 +20,8 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 
 ## Executive summary - Sprint 3
 
+Jag har byggt klart manager-sidan med möjlighet att lägga till produkter och kategorier, samt redigera användare, produkter och kategorier. Jag har fixat orderhanteringen och implementerat att priset låses efter att ordern läggs. Jag har även implementerat reviws. 
+
 # Userstories
 
 ## Admin
@@ -110,12 +112,19 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 
 ### Visa kundvagn
 
-1. Tryck på kundvagn i headern
+1. Tryck på kundvagn i headern.
 
 ### Lägg order
 
-1. Öppna kundvagnen
-2. Lägg order
+1. Öppna kundvagnen.
+2. Lägg order.
+
+### Lägg review
+
+1. Navigera till en produkt.
+2. Använd slidern för att ställa in ett betyg mellan ett till fem.
+3. Skriv en review.
+4. Tryck på _review_.
 
 ## Manager
 
