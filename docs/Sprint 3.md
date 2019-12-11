@@ -166,10 +166,16 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 ### Radera tagtyp/kategor
 1. Utförs på samma sätt som produkt/användare/ordrar
 
-# Limitations
-* Säkerhet
-	+ Flask kör på en öppen ip
-	+ MySQL är öppen för remote login
-  	+ Mycket går att ta sig runt
-* Kundvagn
-  	+ Kundvagnen kan bara hålla en enhet av en produkt för en användare. Orderitems har däremot ett antal.
+## Limitations
+
+### Säkerhet
+
+* Flask kör på en öppen ip
+* MySQL är öppen för remote login
+* Mycket går att ta sig runt
+
+### Review
+* En användare kan endast lägga en review per produkt. Detta då databasen använder en tuple av _userId_ och _productId_ som primär nyckel samt att GUIn bygger på att man kan lägga en review och senare kan redigera denna. Huruvida detta är att föredra går att diskutera, men jag har valt att implementera den såhär.
+
+### Taggar
+* Taggar samt taggtyper var en ide för att möjliggöra en sökfunktion. Detta finns färdigt i databasen, men implementationen blev nedprioriterat.
