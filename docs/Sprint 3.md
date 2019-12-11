@@ -1,4 +1,8 @@
-# Sprint 2
+# Sprint 3
+
+## Introduction
+
+Det här är en webbshop utvecklad för en laboration i kurset _D0020E_. _Musikdong_, som är webbshopens namn, säljer gitarrpedaler, tveksamt lagliga sexuella tjänster samt annat smått och gott.
 
 ## Executive summary - Sprint 1
 
