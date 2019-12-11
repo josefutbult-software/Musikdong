@@ -18,6 +18,8 @@ Jag har tillsammans med Josef tagit fram user stories samt gjort en enkel hemsid
 
 Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och ett orderItem-table. En grundläggande manager-sida har också lagts till.
 
+## Executive summary - Sprint 3
+
 # Userstories
 
 ## Admin
@@ -63,11 +65,11 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 
 # Nuvarande Backlog
 
-![](https://snipboard.io/VsZz31.jpg)
+![](https://snipboard.io/RfXx1Z.jpg)
 
 # ER-diagram
 
-![](https://snipboard.io/Q965AY.jpg)
+![](https://snipboard.io/NAgtRl.jpg)
 
 # Kodbas
 
