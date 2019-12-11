@@ -183,12 +183,15 @@ CREATE TABLE IF NOT EXISTS Orders (
 -- | orderId   | int(11)    | NO   | PRI | NULL    |       |
 -- | productId | varchar(6) | NO   | PRI | NULL    |       |
 -- | amount    | int(11)    | YES  |     | NULL    |       |
+-- | price     | int(11)    | YES  |     | NULL    |       |
 -- +-----------+------------+------+-----+---------+-------+
+
 DROP TABLE IF EXISTS Orderitems;
 CREATE TABLE IF NOT EXISTS Orderitems(
 	`orderId` INT NOT NULL,
 	`productId` VARCHAR(6) NOT NULL,
 	`amount` INT,
+	`price` INT,
 	PRIMARY KEY (`orderId`, `productId`),
 	FOREIGN KEY (`orderId`)
     REFERENCES `Orders` (`id`)
@@ -461,33 +464,39 @@ INSERT INTO Orders (id, userId, orderdate, payed, processed) VALUES(
 );
 
 -- Orderitems
-INSERT INTO Orderitems (orderId, productId, amount) VALUES(
+INSERT INTO Orderitems (orderId, productId, amount, price) VALUES(
 	1,
 	'043821',
-	1
+	1,
+	450.0
 );
-INSERT INTO Orderitems (orderId, productId, amount) VALUES(
+INSERT INTO Orderitems (orderId, productId, amount, price) VALUES(
 	1,
 	'183719',
-	1
+	1,
+	-40.0
 );
-INSERT INTO Orderitems (orderId, productId, amount) VALUES(
+INSERT INTO Orderitems (orderId, productId, amount, price) VALUES(
 	1,
 	'018183',
-	1
+	1,
+	200.0
 );
-INSERT INTO Orderitems (orderId, productId, amount) VALUES(
+INSERT INTO Orderitems (orderId, productId, amount, price) VALUES(
 	2,
 	'043821',
-	1
+	1,
+	450.0
 );
-INSERT INTO Orderitems (orderId, productId, amount) VALUES(
+INSERT INTO Orderitems (orderId, productId, amount, price) VALUES(
 	2,
 	'183719',
-	1
+	1,
+	-40.0
 );
-INSERT INTO Orderitems (orderId, productId, amount) VALUES(
+INSERT INTO Orderitems (orderId, productId, amount, price) VALUES(
 	2,
 	'019302',
-	1
+	1,
+	100.0
 );

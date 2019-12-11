@@ -255,11 +255,11 @@ def create_app():
 					pass
 
 		productsInOrder = []
+		price = 0
 		for orderitem in SQL_handler.get_orderitems_by_id(id):
 			productsInOrder.append(SQL_handler.getProductFromDatabase(orderitem.productId))
 			productsInOrder[-1].amount = orderitem.amount
-
-		price = sum([product.price * product.amount for product in productsInOrder])
+			price += orderitem.price * orderitem.amount
 
 		return render_template('manageOrder.html', args={'user': user_handler.get_user(), 'orderUser': SQL_handler.getUserById(order.userId), 'order': order, 'orderitems': SQL_handler.get_orderitems_by_id(id), 'price': price})
 

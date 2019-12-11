@@ -3,7 +3,7 @@
 {% block content %}
 
 {% for product in args.products%}
-	<p><a href="../product/{{product.id}}">{{product.name}}</a></p>
+	<div><a href="../product/{{product.id}}"><button class="btn btn-light m-2">{{product.name}}</button></a></div>
 {% endfor %}
 
 {% endblock %}

@@ -69,12 +69,13 @@ class Order():
 
 class Orderitem():
 	def __init__(self, values, product):
-		if values.get("orderId") is None or values.get("productId") is None or values.get("amount") is None:
+		if values.get("orderId") is None or values.get("productId") is None or values.get("amount") is None or values.get("price") is None:
 			raise IncorrectObjectDeclaration
 
 		self.orderId = values.get("orderId")
 		self.productId = values.get("productId")
 		self.amount = values.get("amount")
+		self.price = values.get("price")
 		self.product = product
 
 

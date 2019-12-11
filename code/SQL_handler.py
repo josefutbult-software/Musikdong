@@ -300,7 +300,7 @@ def place_order(user: User) -> Product:
 		cart = cursor.fetchall()
 
 		for instance in cart:
-			cursor.execute("INSERT INTO Orderitems (orderId, productId, amount) VALUES (%s, %s, %s)", (orderid, instance.get("productId"), instance.get("amount")))			
+			cursor.execute("INSERT INTO Orderitems (orderId, productId, amount, price) VALUES (%s, %s, %s, %s)", (orderid, instance.get("productId"), instance.get("amount"), getProductFromDatabase(instance.get("productId")).price))			
 			connection.commit()
 
 		cursor.execute("DELETE FROM Cart WHERE userId=%s", (user.id, ))

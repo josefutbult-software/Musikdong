@@ -28,8 +28,8 @@
 	<form method="post">
 		<div class="float-center d-inline-block">
 			<input type="range" name="rating" min="1" max="5" value="{{args.userReview.rating}}" class="d-inline-block" onchange="(function(){$('#rating').html($('input[type=range]').val() + '/5 schlongs')})()">
-			<p id="rating" class="ml-2 d-inline-block m-2">{{args.userReview.rating}}/5 schlongs</p>
-			<textarea name="review" rows="4" cols="50" class="d-inline-block">{{args.userReview.review}}</textarea>
+			<p id="rating" class="ml-2 d-inline-block m-2">{% if args.userReview != None %}{{args.userReview.rating}}/5 schlongs{% endif %}</p>
+			<textarea name="review" rows="4" cols="50" class="d-inline-block">{% if args.userReview != None %}{{args.userReview.review}}{% endif %}</textarea>
 		</div>
 		<br>
 		<input type="submit" name="submit" value="Review" class="btn btn-primary m-3">
