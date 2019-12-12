@@ -160,10 +160,10 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 
 ## Admin
 
-### Updatera tagtyp/kategori/rättigheter produkt/användare/ordrar
+### Updatera kategori/rättigheter
 1. Utförs på samma sätt som produkt/användare/ordrar
 
-### Radera tagtyp/kategor
+### Radera kategor
 1. Utförs på samma sätt som produkt/användare/ordrar
 
 ## Limitations
