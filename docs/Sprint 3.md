@@ -1,4 +1,8 @@
-# Sprint 2
+# Sprint 3
+
+## Introduction
+
+Det här är en webbshop utvecklad för en laboration i kurset _D0020E_. _Musikdong_, som är webbshopens namn, säljer gitarrpedaler, tveksamt legala sexuella tjänster samt annat smått och gott.
 
 ## Executive summary - Sprint 1
 
@@ -17,6 +21,10 @@ Jag har tillsammans med Josef tagit fram user stories samt gjort en enkel hemsid
 ### Josef
 
 Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och ett orderItem-table. En grundläggande manager-sida har också lagts till.
+
+## Executive summary - Sprint 3
+
+Jag har byggt klart manager-sidan med möjlighet att lägga till produkter och kategorier, samt redigera användare, produkter och kategorier. Jag har fixat orderhanteringen och implementerat att priset låses efter att ordern läggs. Jag har även implementerat reviws. 
 
 # Userstories
 
@@ -52,9 +60,10 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 1. Har alla rättigheter som en icke inloggad användare.
 2. Kan orientera sig mellan kategorier till produkter.
 3. Kan lägga produkter i sin kundvagn.
-4. Kan öppna sin kundvagn och se vad som ligger i.
-5. Kan lägga en order som senare hanteras av managers.
-6. Kan logga ut från sin användare.
+4. Kan lägga en review på en produkt.
+5. Kan öppna sin kundvagn och se vad som ligger i.
+6. Kan lägga en order som senare hanteras av managers.
+7. Kan logga ut från sin användare.
 
 ## Icke inloggad användare
 
@@ -63,11 +72,11 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 
 # Nuvarande Backlog
 
-![](https://snipboard.io/VsZz31.jpg)
+![](https://snipboard.io/RfXx1Z.jpg)
 
 # ER-diagram
 
-![](https://snipboard.io/Q965AY.jpg)
+![](https://snipboard.io/NAgtRl.jpg)
 
 # Kodbas
 
@@ -108,12 +117,19 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 
 ### Visa kundvagn
 
-1. Tryck på kundvagn i headern
+1. Tryck på kundvagn i headern.
 
 ### Lägg order
 
-1. Öppna kundvagnen
-2. Lägg order
+1. Öppna kundvagnen.
+2. Lägg order.
+
+### Lägg review
+
+1. Navigera till en produkt.
+2. Använd slidern för att ställa in ett betyg mellan ett till fem.
+3. Skriv en review.
+4. Tryck på _review_.
 
 ## Manager
 
@@ -129,11 +145,11 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 2. Redigera produkt/kategori/ordrar
 3. Tryck på _Update_
 
-### Lägga till produkt/användare/ordrar
+### Lägga till produkt
 
 1. Öppna _Manager_.
 2. Tryck på _Add_
-3. Fyll i produkt/användare/ordrar
+3. Fyll i produkt
 4. Tryck på _Add_.
 
 ### Radera produkt/användare/ordrar
@@ -144,16 +160,22 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 
 ## Admin
 
-### Updatera tagtyp/kategori/rättigheter produkt/användare/ordrar
+### Updatera kategori/rättigheter
 1. Utförs på samma sätt som produkt/användare/ordrar
 
-### Radera tagtyp/kategor
+### Radera kategor
 1. Utförs på samma sätt som produkt/användare/ordrar
 
-# Limitations
-* Säkerhet
-	+ Flask kör på en öppen ip
-	+ MySQL är öppen för remote login
-  	+ Mycket går att ta sig runt
-* Kundvagn
-  	+ Kundvagnen kan bara hålla en enhet av en produkt för en användare. Orderitems har däremot ett antal.
+## Limitations
+
+### Säkerhet
+
+* Flask kör på en öppen ip
+* MySQL är öppen för remote login
+* Mycket går att ta sig runt
+
+### Review
+* En användare kan endast lägga en review per produkt. Detta då databasen använder en tuple av _userId_ och _productId_ som primär nyckel samt att GUIn bygger på att man kan lägga en review och senare kan redigera denna. Huruvida detta är att föredra går att diskutera, men jag har valt att implementera den såhär.
+
+### Taggar
+* Taggar samt taggtyper var en ide för att möjliggöra en sökfunktion. Detta finns färdigt i databasen, men implementationen blev nedprioriterat.
