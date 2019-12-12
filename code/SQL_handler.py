@@ -1,6 +1,7 @@
 import default_config
 import pymysql.cursors
 from datetime import date
+from random import randint
 from database_handler import *
 
 # Initiates a connection to the mySql database on run
@@ -223,6 +224,14 @@ def update_user(user: User) -> None:
 	with connection.cursor() as cursor:
 		cursor.execute("UPDATE `User` SET `username`=%s, `password`=%s, `alias`=%s, `clearance`=%s WHERE `id`=%s", (user.username, user.password, user.alias, user.clearance, user.id))
 		connection.commit()
+
+def delete_user(user: User) -> None:
+	global connection
+
+	with connection.cursor() as cursor:
+		cursor.execute("DELETE FROM `User` WHERE `id`=%s", (user.id))
+		connection.commit()
+
 
 
 def get_cart(user: User):

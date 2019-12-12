@@ -1,6 +1,15 @@
-import sys
+######################################################
 
-# Allowing a custom config file to overwrite the default configuration
+# This file allows a custom config file to overwrite 
+# the default configuration. It ries to import a file 
+# from the first argument of the program start and
+# sets the config parameters to the ones in the custom 
+# file on success. Otherwise assigns default values to 
+# the parameters.
+
+######################################################
+
+import sys
 try:
     config = __import__(sys.argv[1].replace('.py', ''))
 

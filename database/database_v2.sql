@@ -214,13 +214,25 @@ INSERT INTO Category (name) VALUES (
 	'Overdrive'
 );
 INSERT INTO Category (name) VALUES (
+	'Compressor'
+);
+INSERT INTO Category (name) VALUES (
 	'Distortion'
 );
 INSERT INTO Category (name) VALUES (
 	'Sexual Favor'
 );
 INSERT INTO Category (name) VALUES (
-	'Compressor'
+	'Components'
+);
+INSERT INTO Category (name) VALUES (
+	'Healing Herbs'
+);
+INSERT INTO Category (name) VALUES (
+	'Tremelo'
+);
+INSERT INTO Category (name) VALUES (
+	'Preamp'
 );
 
 
@@ -255,9 +267,104 @@ INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
 	100.0,
 	'Not drugs...I promise',
 	'None',
+	'Healing Herbs'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'018472',
+	'Apollo Tremelo',
+	300.0,
+	'Ready for liftoff',
+	'None',
+	'Tremelo'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'301451',
+	'Hartke Bass Bost',
+	800.0,
+	'A preamp with a three band EQ and a blendable drive',
+	'None',
+	'Preamp'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'034812',
+	'Shreks Love',
+	0.0,
+	'Shrek loves everyone, even if you\'r poor',
+	'None',
 	'Sexual Favor'
 );
-
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'399832',
+	'Drive it up',
+	320.0,
+	'A drive you can drive up anywhere you want',
+	'None',
+	'Overdrive'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'849283',
+	'Squarelo',
+	360,
+	'A squaregenerating tremelo',
+	'None',
+	'Tremelo'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'329132',
+	'Healing crystals',
+	9000,
+	'Totaly legit...totaly',
+	'None',
+	'Healing Herbs'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'038829',
+	'The entire country of France',
+	3456000,
+	'Yea. THE country of love',
+	'None',
+	'Sexual Favor'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'000040',
+	'Barrel jack',
+	20,
+	'Standard DC jack',
+	'None',
+	'Components'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'456432',
+	'Human finger',
+	500,
+	'Can be good for something I guess',
+	'None',
+	'Components'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'993452',
+	'Barack Obama blow up doll',
+	600,
+	'For you who gets of on power!',
+	'None',
+	'Sexual Favor'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'345642',
+	'McBooster',
+	1000,
+	'Where\'yell boost\'n on aboat?!',
+	'None',
+	'Preamp'
+);
+INSERT INTO Products (id, name, price, description, imageUrl, category) VALUES (
+	'045284',
+	'Megadeath',
+	530,
+	'For people to compensate for there small penis',
+	'None',
+	'Distortion'
+);
 
 
 -- TagTypes

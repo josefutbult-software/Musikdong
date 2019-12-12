@@ -1,10 +1,20 @@
+######################################################
+# This is the core of the program. Here the flask 
+# object is initialized and paths for different urls 
+# are defined whith its corresponding functions
+######################################################
+
 import sys, os
 from flask import Flask, request, redirect, render_template, abort, session, flash, url_for
 from datetime import datetime
-from random import randint, seed
+from random import seed
 import default_config
 from database_handler import *
 import user_handler
+
+# Imports the dummy database and overwrites the SQL_handler module
+# if this is specified in the config-file. Otherwise imports 
+# the SQL_handler module
 
 if not default_config.USEDUMMYDATABASE:
 	import SQL_handler
@@ -12,6 +22,8 @@ else:
 	import dummy_database as SQL_handler
 
 def create_app():
+
+	# Initializes the app
 	seed(datetime.now())
 	app = Flask(__name__, instance_relative_config=True)
 	app.secret_key = os.urandom(24)
@@ -20,19 +32,17 @@ def create_app():
 	@app.route('/')
 	def home():
 
-		products = []
-		productIds = SQL_handler.getAllProductId()
-		for productId in productIds:
-			products.append(SQL_handler.getProductFromDatabase(productId))
-
 		return render_template('home.html', args={'categories': SQL_handler.getCategories(), 'user': user_handler.get_user()})
 
 
 	@app.route('/product/<id>', methods = ['GET', 'POST'])
 	def product(id):
+
+		# Tries to pull the product from the database if it exists
 		try:
 			product = SQL_handler.getProductFromDatabase(id)
 			
+			# Checks if the user is logged in. Pulls the users review if it is
 			if user_handler.get_user() != None:
 				try:
 					userReview = SQL_handler.getReveiw(user_handler.get_user(), product)
@@ -40,8 +50,10 @@ def create_app():
 					userReview = None
 
 				if request.method == 'POST':
+					# Ads a product to the cart if a form is specified to order
 					if request.form["submit"] == 'Order':
 						SQL_handler.add_to_cart(user_handler.get_user(), product)
+					# Sets the review for the user if a form is specified for the review
 					elif request.form["submit"] == 'Review':
 						userReview = Review({'userId': user_handler.get_user().id, 'productId': product.id, 'rating': request.form["rating"], 'review': request.form["review"]})
 						SQL_handler.setReview(userReview)
@@ -49,8 +61,8 @@ def create_app():
 			else:
 				userReview = None
 
+			# Pulls all reviews and appends a user to it
 			reviews = SQL_handler.getReviewByProduct(product)
-			
 			for review in reviews:
 				review.user = SQL_handler.getUserById(review.userId)
 
@@ -148,13 +160,18 @@ def create_app():
 			if request.form['formtype'] == 'userconfig':
 				userToManage.alias = request.form['alias']
 
-				if user_handler.get_user().clearance == 0:
-					userToManage.clearance = request.form['clearance']
-		
-				if request.form['password'] != "":
-					user_handler.update_password(userToManage, request.form['password'])
-				
-				SQL_handler.update_user(userToManage)
+				if request.form["submit"] == "update":
+					if user_handler.get_user().clearance == 0:
+						userToManage.clearance = request.form['clearance']
+			
+					if request.form['password'] != "":
+						user_handler.update_password(userToManage, request.form['password'])
+					
+					SQL_handler.update_user(userToManage)
+				elif request.form["submit"] == "delete":
+					SQL_handler.delete_user(userToManage)
+					return redirect(url_for('.manager'))
+
 			else:
 				if request.form["submit"] == "+":
 					SQL_handler.updatecart_amount(userToManage, SQL_handler.getProductFromDatabase(request.form["productId"]), 1)
