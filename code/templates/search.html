@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Search: {{args.searchString}}</h2>
+
+<div class="box p-2">
+	{% for instance in args.result %}
+	<a href="/product/{{instance.id}}"><h3 class="m-3">{{ instance.name }}</h3></a>
+	<hr>
+	{% endfor %}
+</div>
+
+{% endblock %}

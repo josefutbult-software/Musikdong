@@ -1,3 +1,5 @@
+
+
 import default_config
 import pymysql.cursors
 from datetime import date
@@ -109,6 +111,15 @@ def generate_productId():
 				return id
 
 			id = str(randint(0, 999999))
+
+
+def searchProduct(searchString):
+	global connection
+
+	searchString = '%' + searchString + '%'
+	with connection.cursor() as cursor:
+		cursor.execute("SELECT * FROM Products WHERE name LIKE %s OR category LIKE %s OR description LIKE %s", (searchString, searchString, searchString))
+		return [Product(product) for product in cursor.fetchall()]
 
 
 def getProductTagsFromDatabase(product):

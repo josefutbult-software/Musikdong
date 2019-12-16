@@ -29,7 +29,7 @@ def create_app():
 	app.secret_key = os.urandom(24)
 
 
-	@app.route('/')
+	@app.route('/', methods = ['GET', 'POST'])
 	def home():
 
 		return render_template('home.html', args={'categories': SQL_handler.getCategories(), 'user': user_handler.get_user()})
@@ -73,7 +73,7 @@ def create_app():
 			abort(404)
 
 
-	@app.route('/category/<id>')
+	@app.route('/category/<id>', methods = ['GET', 'POST'])
 	def category(id):
 
 		return render_template('categories.html', args={'products': SQL_handler.getProductsByCategoryFromDatabase(id), 'user': user_handler.get_user()})
@@ -141,7 +141,7 @@ def create_app():
 		return render_template('cart.html', args={'user': currentUser, 'products': SQL_handler.get_cart(currentUser), 'price': sum([product.price * product.amount for product in SQL_handler.get_cart(currentUser)])})
 
 
-	@app.route('/manager', methods = ['GET',])
+	@app.route('/manager', methods = ['GET', 'POST'])
 	def manager():
 		if user_handler.get_user() is None or user_handler.get_user().clearance > 1:	
 			abort(404)
@@ -314,6 +314,11 @@ def create_app():
 			name = ""
 
 		return render_template('/addCategory.html', args={'user': user_handler.get_user(), 'category': name})
+
+	@app.route('/search', methods = ['GET', 'POST'])
+	def search():
+		searchString = request.url.split('=')[1]
+		return render_template('search.html', args={'user': user_handler.get_user(), 'searchString': searchString, 'result': SQL_handler.searchProduct(searchString)})
 
 	return app
 
