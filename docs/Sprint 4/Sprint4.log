@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.12.20)  10 JAN 2020 15:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.12.20)  10 JAN 2020 17:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -133,49 +133,59 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 17.
+(Font)              <12> on input line 18.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 17.
+(Font)              <8> on input line 18.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 17.
+(Font)              <6> on input line 18.
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 4
-9.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (/home/josef/Mega/Kod/Webs
+ites/Musikdong/docs/Sprint 4/Sprint4.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 4.
+)
+\tf@toc=\write3
+\openout3 = `Sprint4.toc'.
+
+[2] [1]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 5
+3.
 (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 49.
-[3]
-<./images/Backlog.png, id=19, 984.67876pt x 1644.1425pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 53.
+[2]
+<./images/Backlog.png, id=24, 984.67876pt x 1644.1425pt>
 File: ./images/Backlog.png Graphic file (type png)
 <use ./images/Backlog.png>
-Package pdftex.def Info: ./images/Backlog.png  used on input line 101.
+Package pdftex.def Info: ./images/Backlog.png  used on input line 103.
 (pdftex.def)             Requested size: 345.00333pt x 576.06061pt.
 
-Overfull \hbox (80.60965pt too wide) in paragraph at lines 98--103
+Overfull \hbox (80.60965pt too wide) in paragraph at lines 100--105
 \OT1/cmr/m/n/10 Backlogen lig-ger i form av is-sues p^^Wa Jo-sefs git-hub. \OT1
 /cmtt/m/n/10 https://github.com/JosefUtbult/Musikdong\OT1/cmr/m/n/10 . 
  []
 
-[4]
-<./images/ER.png, id=25, 589.20125pt x 767.86874pt>
+[3]
+<./images/ER.png, id=29, 732.7375pt x 800.9925pt>
 File: ./images/ER.png Graphic file (type png)
 <use ./images/ER.png>
-Package pdftex.def Info: ./images/ER.png  used on input line 107.
-(pdftex.def)             Requested size: 345.0005pt x 449.61736pt.
-[5 <./images/Backlog.png>] [6 <./images/ER.png>] [7] [8] [9] (/home/josef/Mega/
+Package pdftex.def Info: ./images/ER.png  used on input line 109.
+(pdftex.def)             Requested size: 345.00162pt x 377.13875pt.
+[4 <./images/Backlog.png>] [5 <./images/ER.png>] [6] [7] [8] (/home/josef/Mega/
 Kod/Websites/Musikdong/docs/Sprint 4/Sprint4.aux) ) 
 Here is how much of TeX's memory you used:
- 2209 strings out of 492167
- 31054 string characters out of 6131557
- 110277 words of memory out of 5000000
- 6546 multiletter control sequences out of 15000+600000
+ 2216 strings out of 492167
+ 31233 string characters out of 6131557
+ 112277 words of memory out of 5000000
+ 6550 multiletter control sequences out of 15000+600000
  8578 words of font info for 31 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 46i,6n,30p,453b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 46i,6n,30p,462b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -186,10 +196,10 @@ ublic/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb
 >
 Output written on "/home/josef/Mega/Kod/Websites/Musikdong/docs/Sprint 4/Sprint
-4.pdf" (9 pages, 398813 bytes).
+4.pdf" (10 pages, 411260 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 50 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 52 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

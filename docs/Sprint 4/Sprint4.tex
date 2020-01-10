@@ -14,14 +14,18 @@
 
 \begin{document}
 
+\pagenumbering{roman}
 \maketitle
 \newpage
+\tableofcontents
+
 \section{Introduktion}
-Det här är en webbshop utvecklad för en laboration i kurset \textit{D0020E}. \textit{Musikdong}, som är webbshopens namn, säljer gitarrpedaler, fullt legala tjänster samt annat smått och gott. Nu är sidan färdig och sitter sidan uppe på IP-adressen http://130.240.200.51:5000. Servern är aktiv om man ber Josef att sätta på den, annars ligger den passiv.
+Det här är en webbshop utvecklad för en laboration i kurset \textit{D0020E}. \textit{Musikdong}, som är webbshopens namn, säljer gitarrpedaler, fullt legala tjänster samt annat smått och gott. Nu är sidan färdig och sitter sidan uppe på IP-adressen \texttt{http://130.240.200.51:5000}. Servern är aktiv om man ber Josef att sätta på den, annars ligger den passiv.
 
 \section{Executive summary}
+\pagenumbering{arabic}
 \subsection{Sprint 1 - Josef}
-Jag har jobbat med att sätta upp servern inför sprint 1. Vi använde den virtuella maskinen tillhandahållen av LUDD, där vi satt upp mySql som databas, en flask-applikation för att kommunicera med backenden samt Nginx för att komma åt sidan via vår statiska IP.
+Jag har jobbat med att sätta upp servern inför Sprint 1. Vi använde den virtuella maskinen tillhandahållen av LUDD, där vi satt upp mySql som databas, en flask-applikation för att kommunicera med backenden samt Nginx för att komma åt sidan via vår statiska IP.
 
 Jag har även experimenterat med att interagera med mySql, främst på min egen maskin för enkelhetens skull, men sett till så att allt är kompatibelt för att emigrera till den virtuella maskinen.
 
@@ -29,7 +33,7 @@ Jag har även experimenterat med att interagera med mySql, främst på min egen 
 Jag har tillsammans med Josef tagit fram user stories samt gjort en enkel hemsida med html och css. 
 
 \subsection{Sprint 2 - Josef}
-Jag har byggt om databasen för att hantera produkter, kategorier och användare mm. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och ett orderItem-table. En grundläggande manager-sida har också lagts till.
+Jag har byggt om databasen för att hantera produkter, kategorier och användare m.m. Jag har även lagt till strukturen för orderhantering i databasen, i form av ett orders-table och ett orderItem-table. En grundläggande manager-sida har också lagts till.
 
 \subsection{Sprint 3 - Josef}
 Jag har byggt klart manager-sidan med möjlighet att lägga till produkter och kategorier, samt redigera användare, produkter och kategorier. Jag har fixat orderhanteringen och implementerat att priset låses efter att ordern läggs. Jag har även implementerat reviws. 
@@ -72,14 +76,12 @@ Jag har lagt till en sökbar i headern som söker på produktnamn.
   \begin{itemize}
   \item Användare
   \item Produkter
-  \item Taggar
   \end{itemize}
 \end{enumerate}
 %
 \subsection{Inloggad användare}
 \begin{enumerate}
   \item Har alla rättigheter som en icke inloggad användare.
-  \item Kan orientera sig mellan kategorier till produkter.
   \item Kan lägga produkter i sin kundvagn.
   \item Kan lägga en review på en produkt.
   \item Kan öppna sin kundvagn och se vad som ligger i.
@@ -221,13 +223,13 @@ Koden för projektet finns tillgänglig publikt på Github under Josefs använda
 Sidan inkluderar en sökbar som skickar ett sök-request till servern. Detta request hanteras av Pymysqls inbyggda formatering av requests, men utöver det görs ingen säkerhetscheck på indatan. Detta kan i teorin släppa igenom vissa SQL-injektioner.
 %
 \subsection{Review}
-En användare kan endast lägga en review per produkt. Detta då databasen använder en tuple av \textit{userId} och \textit{productId} som primär nyckel samt att GUIn bygger på att man kan lägga en review och senare kan redigera denna. Huruvida detta är att föredra går att diskutera, men jag har valt att implementera den såhär.
+En användare kan endast lägga en review per produkt. Detta då databasen använder en tuple av \textit{userId} och \textit{productId} som primär nyckel samt att GUIn bygger på att man kan lägga en review och senare kan redigera denna. Huruvida detta är att föredra går att diskutera, men detta är hur det har implementerats i projektet.
 %
 \subsection{Taggar}
 Taggar samt taggtyper var en ide för att möjliggöra en sökfunktion. Detta finns färdigt i databasen, men implementationen blev nedprioriterat. Tanken från början var att taggar skulle inkluderas i sökresultaten då en användare använder sökbaren, men denna implementationen nedprioriterades tills den inte lägre var väsentlig för projektet.
 %
 \subsection{Produktbilder}
-URL för bilder på produkter är även tillagt i databasen, men tillägning av bilder, lagring samt visning av bilder på produktsidor blev inte implementerat i programmet.
+URL för bilder på produkter finns tillagt i databasen, men tillägning av bilder, lagring samt visning av bilder på produktsidor blev inte implementerat i programmet.
 %
 \end{document}
 %
