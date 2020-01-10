@@ -1,4 +1,4 @@
-# Sprint 3
+# Sprint 4
 
 ## Introduction
 
@@ -25,6 +25,10 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 ## Executive summary - Sprint 3
 
 Jag har byggt klart manager-sidan med möjlighet att lägga till produkter och kategorier, samt redigera användare, produkter och kategorier. Jag har fixat orderhanteringen och implementerat att priset låses efter att ordern läggs. Jag har även implementerat reviws. 
+
+## Executive summary - Sprint 3
+
+Jag har lagt till en sökbar i headern som söker på produktnamn.
 
 # Userstories
 
@@ -67,16 +71,17 @@ Jag har byggt klart manager-sidan med möjlighet att lägga till produkter och k
 
 ## Icke inloggad användare
 
-2. Kan orientera sig mellan kategorier till produkter.
+1. Kan orientera sig mellan kategorier till produkter.
+2. Kan använda sökbaren för att söka på ett produktnamn.
 3. Kan logga in, eller skapa en användare.
 
 # Nuvarande Backlog
 
-![](https://snipboard.io/RfXx1Z.jpg)
+![](https://snipboard.io/oKrlJq.jpg)
 
 # ER-diagram
 
-![](https://snipboard.io/NAgtRl.jpg)
+![](https://snipboard.io/otvX8T.jpg)
 
 # Kodbas
 
@@ -93,6 +98,12 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 2. Navigera till en kategori.
 3. Navigera till en produkt.
 4. Öppna sida för produkt.
+
+### Sök efter produkt
+1. Navigera till sökbaren.
+2. Skriv in namn eller del av namn på en produkt.
+3. Tryck på _Sök_.
+4. Välj produkt bland resultaten.
 
 ### Skapa användare
 
