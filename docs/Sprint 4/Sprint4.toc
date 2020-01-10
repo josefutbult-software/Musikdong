@@ -1,0 +1,11 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {swedish}{}
+\contentsline {section}{\numberline {1}Inledning}{1}{section.1}% 
+\contentsline {section}{\numberline {2}Teori}{1}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Litteraturstudie}{1}{subsection.2.1}% 
+\contentsline {section}{\numberline {3}Metod}{1}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Experimentell uppställning}{1}{subsection.3.1}% 
+\contentsline {section}{\numberline {4}Resultat}{1}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Underrubrik vid behov}{2}{subsection.4.1}% 
+\contentsline {subsubsection}{\numberline {4.1.1}Fler underrubriker om så behövs}{2}{subsubsection.4.1.1}% 
+\contentsline {section}{\numberline {5}Diskussion och slutsatser}{2}{section.5}% 

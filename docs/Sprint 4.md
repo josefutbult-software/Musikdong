@@ -1,8 +1,8 @@
-# Sprint 4
+# Sprint 4 - Slutrapport
 
 ## Introduction
 
-Det här är en webbshop utvecklad för en laboration i kurset _D0020E_. _Musikdong_, som är webbshopens namn, säljer gitarrpedaler, tveksamt legala sexuella tjänster samt annat smått och gott.
+Det här är en webbshop utvecklad för en laboration i kurset _D0020E_. _Musikdong_, som är webbshopens namn, säljer gitarrpedaler, fullt legala tjänster samt annat smått och gott. Nu är sidan färdig och sitter sidan uppe på IP-adressen http://130.240.200.51:5000. Servern är aktiv om man ber Josef att sätta på den, annars ligger den passiv.
 
 ## Executive summary - Sprint 1
 
@@ -26,7 +26,7 @@ Jag har byggt om databasen för att hantera produkter, kategorier och användare
 
 Jag har byggt klart manager-sidan med möjlighet att lägga till produkter och kategorier, samt redigera användare, produkter och kategorier. Jag har fixat orderhanteringen och implementerat att priset låses efter att ordern läggs. Jag har även implementerat reviws. 
 
-## Executive summary - Sprint 3
+## Executive summary - Sprint 4
 
 Jag har lagt till en sökbar i headern som söker på produktnamn.
 
@@ -189,8 +189,8 @@ En användare kan endast lägga en review per produkt. Detta då databasen anvä
 
 ### Taggar
 
-Taggar samt taggtyper var en ide för att möjliggöra en sökfunktion. Detta finns färdigt i databasen, men implementationen blev nedprioriterat.
+Taggar samt taggtyper var en ide för att möjliggöra en sökfunktion. Detta finns färdigt i databasen, men implementationen blev nedprioriterat. Tanken från början var att taggar skulle inkluderas i sökresultaten då en användare använder sökbaren, men denna implementationen nedprioriterades tills den inte lägre var väsentlig för projektet.
 
 ### Produktbilder
 
-URL för bilder på produkter är även tillagt i databasen, men inte implementerat i programmet.
+URL för bilder på produkter är även tillagt i databasen, men tillägning av bilder, lagring samt visning av bilder på produktsidor blev inte implementerat i programmet.
