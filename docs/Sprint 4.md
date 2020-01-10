@@ -181,9 +181,7 @@ Koden finns tillgänglig publikt på Github under min användare (JosefUtbult). 
 
 ### Säkerhet
 
-* Flask kör på en öppen ip
-* MySQL är öppen för remote login
-* Mycket går att ta sig runt
+Sidan inkluderar en sökbar som skickar ett sök-request till servern. Detta request hanteras av Pymysqls inbyggda formatering av requests, men utöver det görs ingen säkerhetscheck på indatan. Detta kan i teorin släppa igenom vissa SQL-injektioner.
 
 ### Review
 
